@@ -1,0 +1,9 @@
+.text-right {
+	text-align: right;
+}
+.text-center {
+	text-align: center;
+}
+.menu-link {
+	padding-right: 30px !important;
+}
