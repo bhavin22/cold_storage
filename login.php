@@ -23,11 +23,12 @@ if(isset($_POST) && isset($_POST['submit'])) {
 		$error_msg = "Please enter password";
 	} else {
 		$obj = new user();
-		$userType = $obj->validateUser($dbConn, $_POST['username'], $_POST['password']);
-		if(isset($userType) && $userType !== null) {
+		$userData = $obj->validateUser($dbConn, $_POST['username'], $_POST['password']);
+		if(isset($userData) && $userData !== null) {
 			$_SESSION['bUserLoggedIn'] = true;
-			$_SESSION['userType'] = $userType;
-			if($userType === 0) {
+			$_SESSION['userType'] = $userData['user_type'];
+			$_SESSION['userData'] = $userData;
+			if($_SESSION['userType'] === 0) {
 				header("location:adminDashboard.php");
 			} else {
 				header("location:userDashboard.php");
@@ -45,6 +46,7 @@ if(isset($_POST) && isset($_POST['submit'])) {
 	<title></title>
 	<link rel="stylesheet" type="text/css" href="libs/bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="stylesheet/main.css">
+	<script type="text/javascript" src="libs/jquery/dist/jquery.min.js"></script>
 	<script type="text/javascript" src="libs/bootstrap/dist/js/bootstrap.min.js"></script>
 </head>
 <body>
