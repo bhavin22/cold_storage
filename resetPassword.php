@@ -14,14 +14,8 @@ if(isset($_SESSION['bUserLoggedIn']) &&
 }
 
 $error_msg = "";
-if(isset($_GET) && isset($_GET['email'])) {
-	$obj = new user();
-	$bValid = $obj->validateResetPassword($dbConn, $_GET['email']);
-	if(!isset($bValid) || !$bValid) {
-		header("location:login.php");
-		exit();
-	}
-} else if(isset($_POST) && isset($_POST['submit'])) {
+if(isset($_POST) && isset($_POST['submit'])) {
+
 	if(!isset($_POST['password']) || 
 		empty($_POST['password'])) {
 		$error_msg = "Please enter valid password";
@@ -37,6 +31,13 @@ if(isset($_GET) && isset($_GET['email'])) {
 		exit();
 	}
 
+} else if(isset($_GET) && isset($_GET['email']) && isset($_GET['token'])) {
+	$obj = new user();
+	$bValid = $obj->validateResetPassword($dbConn, $_GET['email'], strval($_GET['token']));
+	if(!isset($bValid) || !$bValid) {
+		header("location:login.php");
+		exit();
+	}
 } else {
 	header("location:login.php");
 	exit();
@@ -69,6 +70,7 @@ if(isset($_GET) && isset($_GET['email'])) {
 				<div class="col-sm-4">
 					<input type="password" id="password" name="password" class="form-control" 
 					value="<?php if(isset($_POST['password'])) echo $_POST['password'];?>"></input>
+					<span class="field-info">Atleast 6 characters, 1 number and 1 special character</span>
 				</div>		
 			</div>
 			<br>
@@ -77,7 +79,7 @@ if(isset($_GET) && isset($_GET['email'])) {
 					<label>Confirm Password</label>
 				</div>
 				<div class="col-sm-4">
-					<input type="repassword" id="repassword" name="repassword" class="form-control" 
+					<input type="password" id="repassword" name="repassword" class="form-control" 
 					value="<?php if(isset($_POST['repassword'])) echo $_POST['repassword'];?>"></input>
 				</div>		
 			</div>

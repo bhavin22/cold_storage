@@ -27,7 +27,7 @@ if(!isset($_SESSION['bUserLoggedIn']) ||
 		    </ul>
 		</nav>
   		<div class="jumbotron">
-  			<a href="<?=$_SESSION['userData']['user_ip']?>" class="btn btn-success">View</a>
+  			<a href="http://<?=$_SESSION['userData']['user_ip']?>" target="_blank" class="btn btn-success">View</a>
   		</div>
 	</div>
 </body>

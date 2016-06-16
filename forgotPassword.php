@@ -2,6 +2,7 @@
 require_once 'config.php';
 require_once 'session.php';
 require_once 'user.php';
+require_once 'email.php';
 
 if(isset($_SESSION['bUserLoggedIn']) &&
 	$_SESSION['bUserLoggedIn'] === true) {
@@ -20,15 +21,10 @@ if(isset($_POST) && isset($_POST['submit'])) {
 		$error_msg = "Please enter valid email";
 	} else {
 		$obj = new user();
-		$bEmailExist = $obj->validateEmail($dbConn, $_POST['email']);
-		if(isset($bEmailExist) && $bEmailExist) {
-			// $link = "/resetPassword.php?email=".$_POST['email'];
-			// $msg = "Hello, Please reset yoyr password using below link ". $link;
-			// $to = $_POST['email'];
-			// $subject = "Reset Password";
-			// $headers = "From: poojarabhavin22@gmail.com";
-			// mail($to,$subject,$msg,$headers);
-			$error_msg = "Email has been sent successfully";
+		$response = $obj->validateEmail($dbConn, $_POST['email']);
+		if(isset($response) && $response->bEmailExist) {
+			$obj = new email();
+			$error_msg = $obj->sendEmail($_POST['email'], $response->token);
 		} else {
 			$error_msg = "Email does not exist";
 		}

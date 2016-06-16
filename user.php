@@ -73,7 +73,9 @@ class user {
 	}
 
 	public function validateEmail($dbConn, $email) {
-		$bEmailExist = false;
+		$response = new stdClass();
+		$response->bEmailExist = false;
+		$response->token = null;
 		$query = "SELECT * FROM users WHERE email = ?";
 		$stmt = $dbConn->prepare($query);
 		$stmt->bind_param("s", $email);
@@ -81,45 +83,55 @@ class user {
 		$stmt->execute();
 		$result = $stmt->get_result();
 		while ($row = $result->fetch_assoc()) {
-	    	$bEmailExist = true;	
+	    	$response->bEmailExist = true;	
 	    }
 	    $stmt->close();
-	    if(!$bEmailExist) {
-	    	return $bEmailExist;
+	    if(!$response->bEmailExist) {
+	    	return $response;
 	    }
 	    
-	    $query = "UPDATE users SET bPasswordModify = 1 WHERE email = ?";
+	    $response->token = $this->generateRandomString();
+	    $query = "UPDATE users SET resetPasswordToken = '".$response->token."' WHERE email = ?";
 		$stmt = $dbConn->prepare($query);
 		$stmt->bind_param("s", $email);
 		
 		$stmt->execute();
 	    $stmt->close();
-	    return $bEmailExist;
+	    return $response;
 	}
 
-	public function validateResetPassword($dbConn, $email) {
+	public function validateResetPassword($dbConn, $email, $token) {
 		$bValid = false;
-		$query = "SELECT * FROM users WHERE email = ? AND bPasswordModify = 1";
+
+		$query = "SELECT * FROM users WHERE email = ? AND resetPasswordToken = ?";
 		$stmt = $dbConn->prepare($query);
-		$stmt->bind_param("s", $email);
+		$stmt->bind_param("ss", $email, $token);
 		
 		$stmt->execute();
 		$result = $stmt->get_result();
-		var_dump($result);
-		exit();
 		while ($row = $result->fetch_assoc()) {
-	    	$bValid = true;	
+	    	$bValid = true;
 	    }
 	    $stmt->close();
 	    return $bValid;
 	}
 
 	public function resetPassword($dbConn, $email, $password) {
-		$query = "UPDATE users SET password = ?, bPasswordModify = 0 WHERE email = ?";
+		$query = "UPDATE users SET password = ?, resetPasswordToken = null WHERE email = ?";
 		$stmt = $dbConn->prepare($query);
 		$stmt->bind_param("ss", $password, $email);
 		
 		$stmt->execute();
+	}
+
+	function generateRandomString($length = 10) {
+	    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	    $charactersLength = strlen($characters);
+	    $randomString = '';
+	    for ($i = 0; $i < $length; $i++) {
+	        $randomString .= $characters[rand(0, $charactersLength - 1)];
+	    }
+	    return $randomString;
 	}
 }
 ?>
