@@ -15,27 +15,22 @@ if(isset($_SESSION['bUserLoggedIn']) &&
 
 $error_msg = "";
 if(isset($_POST) && isset($_POST['submit'])) {
-	if(!isset($_POST['username']) ||
-		empty($_POST['username'])) {
-		$error_msg = "Please enter username";
-	} else if (!isset($_POST['password']) ||
-		empty($_POST['password'])) {
-		$error_msg = "Please enter password";
+	if(!isset($_POST['email']) ||
+		empty($_POST['email'])) {
+		$error_msg = "Please enter valid email";
 	} else {
 		$obj = new user();
-		$userData = $obj->validateUser($dbConn, $_POST['username'], $_POST['password']);
-		if(isset($userData) && $userData !== null) {
-			$_SESSION['bUserLoggedIn'] = true;
-			$_SESSION['userType'] = $userData['user_type'];
-			$_SESSION['userData'] = $userData;
-			if($_SESSION['userType'] === 0) {
-				header("location:adminDashboard.php");
-			} else {
-				header("location:userDashboard.php");
-			}
-			exit();
+		$bEmailExist = $obj->validateEmail($dbConn, $_POST['email']);
+		if(isset($bEmailExist) && $bEmailExist) {
+			// $link = "/resetPassword.php?email=".$_POST['email'];
+			// $msg = "Hello, Please reset yoyr password using below link ". $link;
+			// $to = $_POST['email'];
+			// $subject = "Reset Password";
+			// $headers = "From: poojarabhavin22@gmail.com";
+			// mail($to,$subject,$msg,$headers);
+			$error_msg = "Email has been sent successfully";
 		} else {
-			$error_msg = "Username or password is incorrect";
+			$error_msg = "Email does not exist";
 		}
 	}
 }
@@ -62,29 +57,12 @@ if(isset($_POST) && isset($_POST['submit'])) {
 		<form method="post" action="#">
 			<div class="row">
 				<div class="col-sm-4 text-right">
-					<label>User Name</label>
+					<label>Email</label>
 				</div>
 				<div class="col-sm-4">
-					<input type="text" id="username" name="username" class="form-control" 
-					value="<?php if(isset($_POST['username'])) echo $_POST['username'];?>"></input>
+					<input type="text" id="email" name="email" class="form-control" 
+					value="<?php if(isset($_POST['email'])) echo $_POST['email'];?>"></input>
 				</div>
-			</div>
-			<br>
-			<div class="row">
-				<div class="col-sm-4 text-right">
-					<label>Password</label>
-				</div>
-				<div class="col-sm-4">
-					<input type="password" id="password" name="password" class="form-control" 
-					value="<?php if(isset($_POST['password'])) echo $_POST['password'];?>"></input>
-				</div>		
-			</div>
-			<div class="row">
-				<div class="col-sm-4">
-				</div>
-				<div class="col-sm-4">
-					<a href="forgotPassword.php">Forgot Password?</a>
-				</div>		
 			</div>
 			<br>
 			<div class="row">
@@ -99,7 +77,7 @@ if(isset($_POST) && isset($_POST['submit'])) {
 				<div class="col-sm-4">
 				</div>
 				<div class="col-sm-4 text-center">
-					<input type="submit" id="submit" name="submit" value="Login" class="btn btn-success" onclick="return validateLogin();"></input>
+					<input type="submit" id="submit" name="submit" value="Send Email" class="btn btn-success" onclick="return validateEmail();"></input>
 				</div>		
 			</div>
 		</form>

@@ -14,21 +14,28 @@ $arrUser = array();
 if(isset($_POST) && isset($_POST['submit'])) {
 	if(!isset($_POST['username']) ||
 		empty($_POST['username'])) {
-		$error_msg = "Please enter user name";
+		$error_msg = "Please enter username";
 	} else if (!isset($_POST['email']) ||
 		empty($_POST['email'])) {
-		$error_msg = "Please enter email";
+		$error_msg = "Please enter valid email address";
 	} else if (!isset($_POST['password']) ||
 		empty($_POST['password'])) {
-		$error_msg = "Please enter password";
+		$error_msg = "Please enter valid password";
 	} else if (!isset($_POST['ip']) ||
 		empty($_POST['ip'])) {
-		$error_msg = "Please enter ip address";
+		$error_msg = "Please enter valid ip address";
 	} else {
 		$obj = new user();
-		$arrUser = $obj->createUser($dbConn, $_POST['username'], $_POST['email'], $_POST['password'], $_POST['ip']);
+		$response = $obj->createUser($dbConn, $_POST['username'], $_POST['email'], $_POST['password'], $_POST['ip']);
+		if($response->bUserExist) {
+			$error_msg = "Username already exist";
+		} else {
+			$arrUser = $response->arrUser;
+			unset($_POST);
+		}
 	}
 } else {
+	$obj = new user();
 	$arrUser = $obj->getUsers($dbConn);
 }
 ?>
@@ -39,6 +46,7 @@ if(isset($_POST) && isset($_POST['submit'])) {
 	<link rel="stylesheet" type="text/css" href="libs/bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="stylesheet/main.css">
 	<script type="text/javascript" src="libs/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="script/main.js"></script>
 	<script type="text/javascript" src="libs/bootstrap/dist/js/bootstrap.min.js"></script>
 </head>
 <body>
@@ -120,6 +128,7 @@ if(isset($_POST) && isset($_POST['submit'])) {
 				<div class="col-sm-4">
 					<input type="password" id="password" name="password" class="form-control" 
 					value="<?php if(isset($_POST['password'])) echo $_POST['password'];?>"></input>
+					<span class="field-info">Atleast 6 characters, 1 number and 1 special character</span>
 				</div>		
 			</div>
 			<br>
@@ -137,7 +146,7 @@ if(isset($_POST) && isset($_POST['submit'])) {
 				<div class="col-sm-4">
 				</div>
 				<div class="col-sm-4">
-					<label class="text-danger"><?=$error_msg?></label>
+					<label id="error_msg" class="text-danger"><?=$error_msg?></label>
 				</div>		
 			</div>
 			<br>
@@ -145,7 +154,7 @@ if(isset($_POST) && isset($_POST['submit'])) {
 				<div class="col-sm-4">
 				</div>
 				<div class="col-sm-4 text-center">
-					<input type="submit" id="submit" name="submit" value="Login" class="btn btn-success"></input>
+					<input type="submit" id="submit" name="submit" value="Create User" class="btn btn-success" onclick="return validateUserData();"></input>
 				</div>		
 			</div>
 		</form>

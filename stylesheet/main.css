@@ -11,3 +11,6 @@
 	max-height: 300px;
 	overflow-y: auto; 
 }
+.field-info {
+	font-size: 10px;
+}

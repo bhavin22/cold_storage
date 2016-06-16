@@ -14,30 +14,32 @@ if(isset($_SESSION['bUserLoggedIn']) &&
 }
 
 $error_msg = "";
-if(isset($_POST) && isset($_POST['submit'])) {
-	if(!isset($_POST['username']) ||
-		empty($_POST['username'])) {
-		$error_msg = "Please enter username";
-	} else if (!isset($_POST['password']) ||
+if(isset($_GET) && isset($_GET['email'])) {
+	$obj = new user();
+	$bValid = $obj->validateResetPassword($dbConn, $_GET['email']);
+	if(!isset($bValid) || !$bValid) {
+		header("location:login.php");
+		exit();
+	}
+} else if(isset($_POST) && isset($_POST['submit'])) {
+	if(!isset($_POST['password']) || 
 		empty($_POST['password'])) {
-		$error_msg = "Please enter password";
+		$error_msg = "Please enter valid password";
+	} else if(!isset($_POST['repassword']) || 
+		empty($_POST['repassword']) || 
+		$_POST['repassword'] !== $_POST['password']) {
+		$error_msg = "Both password should be same";
 	} else {
 		$obj = new user();
-		$userData = $obj->validateUser($dbConn, $_POST['username'], $_POST['password']);
-		if(isset($userData) && $userData !== null) {
-			$_SESSION['bUserLoggedIn'] = true;
-			$_SESSION['userType'] = $userData['user_type'];
-			$_SESSION['userData'] = $userData;
-			if($_SESSION['userType'] === 0) {
-				header("location:adminDashboard.php");
-			} else {
-				header("location:userDashboard.php");
-			}
-			exit();
-		} else {
-			$error_msg = "Username or password is incorrect";
-		}
+		$obj->resetPassword($dbConn, $_GET['email'], $_POST['password']);
+		
+		header("location:login.php");
+		exit();
 	}
+
+} else {
+	header("location:login.php");
+	exit();
 }
 ?>
 <!DOCTYPE html>
@@ -62,16 +64,6 @@ if(isset($_POST) && isset($_POST['submit'])) {
 		<form method="post" action="#">
 			<div class="row">
 				<div class="col-sm-4 text-right">
-					<label>User Name</label>
-				</div>
-				<div class="col-sm-4">
-					<input type="text" id="username" name="username" class="form-control" 
-					value="<?php if(isset($_POST['username'])) echo $_POST['username'];?>"></input>
-				</div>
-			</div>
-			<br>
-			<div class="row">
-				<div class="col-sm-4 text-right">
 					<label>Password</label>
 				</div>
 				<div class="col-sm-4">
@@ -79,11 +71,14 @@ if(isset($_POST) && isset($_POST['submit'])) {
 					value="<?php if(isset($_POST['password'])) echo $_POST['password'];?>"></input>
 				</div>		
 			</div>
+			<br>
 			<div class="row">
-				<div class="col-sm-4">
+				<div class="col-sm-4 text-right">
+					<label>Confirm Password</label>
 				</div>
 				<div class="col-sm-4">
-					<a href="forgotPassword.php">Forgot Password?</a>
+					<input type="repassword" id="repassword" name="repassword" class="form-control" 
+					value="<?php if(isset($_POST['repassword'])) echo $_POST['repassword'];?>"></input>
 				</div>		
 			</div>
 			<br>
@@ -99,7 +94,7 @@ if(isset($_POST) && isset($_POST['submit'])) {
 				<div class="col-sm-4">
 				</div>
 				<div class="col-sm-4 text-center">
-					<input type="submit" id="submit" name="submit" value="Login" class="btn btn-success" onclick="return validateLogin();"></input>
+					<input type="submit" id="submit" name="submit" value="Reset Password" class="btn btn-success" onclick="return validatePasswords();"></input>
 				</div>		
 			</div>
 		</form>
