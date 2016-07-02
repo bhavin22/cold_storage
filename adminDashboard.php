@@ -12,23 +12,46 @@ if(!isset($_SESSION['bUserLoggedIn']) ||
 $error_msg = "";
 $arrUser = array();
 if(isset($_POST) && isset($_POST['submit'])) {
-	if(!isset($_POST['username']) ||
-		empty($_POST['username'])) {
-		$error_msg = "Please enter username";
+	if(!isset($_POST['company_name']) ||
+		empty($_POST['company_name'])) {
+		$error_msg = "Please enter company name";
+	} else if(!isset($_POST['user_name']) ||
+		empty($_POST['user_name'])) {
+		$error_msg = "Please enter user name";
 	} else if (!isset($_POST['email']) ||
 		empty($_POST['email'])) {
 		$error_msg = "Please enter valid email address";
-	} else if (!isset($_POST['password']) ||
-		empty($_POST['password'])) {
-		$error_msg = "Please enter valid password";
 	} else if (!isset($_POST['ip']) ||
 		empty($_POST['ip'])) {
 		$error_msg = "Please enter valid ip address";
+	} else if (!isset($_POST['password']) ||
+		empty($_POST['password'])) {
+		$error_msg = "Please enter valid password";
+	} else if ($_POST['repassword'] !== $_POST['password']) {
+		$error_msg = "Both password should be same";
+	} else if(!isset($_POST['address1']) ||
+		empty($_POST['address1'])) {
+		$error_msg = "Please enter address1";
+	} else if(!isset($_POST['address2']) ||
+		empty($_POST['address2'])) {
+		$error_msg = "Please enter address2";
+	} else if(!isset($_POST['city']) ||
+		empty($_POST['city'])) {
+		$error_msg = "Please enter city";
+	} else if(!isset($_POST['country']) ||
+		empty($_POST['country'])) {
+		$error_msg = "Please enter country";
+	} else if(!isset($_POST['zip_code']) ||
+		empty($_POST['zip_code'])) {
+		$error_msg = "Please enter zip code";
+	} else if(!isset($_POST['phone_number']) ||
+		empty($_POST['phone_number'])) {
+		$error_msg = "Please enter phone number";
 	} else {
 		$obj = new user();
-		$response = $obj->createUser($dbConn, $_POST['username'], $_POST['email'], $_POST['password'], $_POST['ip']);
+		$response = $obj->createUser($dbConn, $_POST['company_name'], $_POST['user_name'], $_POST['email'], $_POST['ip'], $_POST['password'], $_POST['address1'], $_POST['address2'], $_POST['city'], $_POST['country'], $_POST['zip_code'], $_POST['phone_number']);
 		if($response->bUserExist) {
-			$error_msg = "Username already exist";
+			$error_msg = "User_name already exist";
 		} else {
 			$arrUser = $response->arrUser;
 			unset($_POST);
@@ -64,9 +87,10 @@ if(isset($_POST) && isset($_POST['submit'])) {
 	      	<table class="table">
 	      		<thead>
 	      			<tr>
-	      			<th>Username</th>
-	      			<th>Email</th>
+	      			<th>User Name</th>
+	      			<th>Company Name</th>
 	      			<th>IP</th>
+	      			<th>Phone Number</th>
 	      			</tr>
 	      		</thead>
 	      		<tbody>	      	
@@ -74,8 +98,9 @@ if(isset($_POST) && isset($_POST['submit'])) {
 		        for ($i=0; $i < count($arrUser); $i++) { 
 		        	echo "<tr>";
 		        	echo "<td>".$arrUser[$i]->user_name."</td>";
-		        	echo "<td>".$arrUser[$i]->email."</td>";
+		        	echo "<td>".$arrUser[$i]->company_name."</td>";
 		        	echo "<td>".$arrUser[$i]->user_ip."</td>";
+		        	echo "<td>".$arrUser[$i]->phone_number."</td>";
 		        	echo "</tr>";
 		        }
 		        ?>
@@ -98,63 +123,82 @@ if(isset($_POST) && isset($_POST['submit'])) {
 		    </ul>
 		</nav>
   		<div class="jumbotron">
-  		
 
   		<form method="post" action="#">
-			<div class="row">
-				<div class="col-sm-4 text-right">
-					<label>User Name</label>
+  			<div class="row">
+				<div class="col-sm-3">
 				</div>
-				<div class="col-sm-4">
-					<input type="text" id="username" name="username" class="form-control" 
-					value="<?php if(isset($_POST['username'])) echo $_POST['username'];?>"></input>
-				</div>
-			</div>
-			<br>
-			<div class="row">
-				<div class="col-sm-4 text-right">
-					<label>Email</label>
-				</div>
-				<div class="col-sm-4">
-					<input type="text" id="email" name="email" class="form-control" 
-					value="<?php if(isset($_POST['email'])) echo $_POST['email'];?>"></input>
-				</div>
-			</div>
-			<br>
-			<div class="row">
-				<div class="col-sm-4 text-right">
-					<label>Password</label>
-				</div>
-				<div class="col-sm-4">
-					<input type="password" id="password" name="password" class="form-control" 
-					value="<?php if(isset($_POST['password'])) echo $_POST['password'];?>"></input>
-					<span class="field-info">Atleast 6 characters, 1 number and 1 special character</span>
-				</div>		
-			</div>
-			<br>
-			<div class="row">
-				<div class="col-sm-4 text-right">
-					<label>IP Address</label>
-				</div>
-				<div class="col-sm-4">
-					<input type="text" id="ip" name="ip" class="form-control" 
-					value="<?php if(isset($_POST['ip'])) echo $_POST['ip'];?>"></input>
-				</div>		
-			</div>
-			<br>
-			<div class="row">
-				<div class="col-sm-4">
-				</div>
-				<div class="col-sm-4">
+				<div class="col-sm-6">
 					<label id="error_msg" class="text-danger"><?=$error_msg?></label>
 				</div>		
 			</div>
 			<br>
 			<div class="row">
-				<div class="col-sm-4">
+				<div class="col-sm-6 bottom-padding">
+					<input type="text" id="company_name" name="company_name" class="form-control" placeholder="Company Name"
+					value="<?php if(isset($_POST['company_name'])) echo $_POST['company_name'];?>"></input>
 				</div>
-				<div class="col-sm-4 text-center">
-					<input type="submit" id="submit" name="submit" value="Create User" class="btn btn-success" onclick="return validateUserData();"></input>
+				<div class="col-sm-6 bottom-padding">
+					<input type="text" id="user_name" name="user_name" class="form-control" placeholder="User Name"
+					value="<?php if(isset($_POST['user_name'])) echo $_POST['user_name'];?>"></input>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-6 bottom-padding">
+					<input type="text" id="email" name="email" class="form-control" placeholder="Email Address"
+					value="<?php if(isset($_POST['email'])) echo $_POST['email'];?>"></input>
+				</div>
+				<div class="col-sm-6 bottom-padding">
+					<input type="text" id="ip" name="ip" class="form-control" placeholder="IP Address"
+					value="<?php if(isset($_POST['ip'])) echo $_POST['ip'];?>"></input>
+				</div>	
+			</div>
+			<div class="row">
+				<div class="col-sm-6 bottom-padding">
+					<input type="text" id="address1" name="address1" class="form-control" placeholder="Address 1"
+					value="<?php if(isset($_POST['address1'])) echo $_POST['address1'];?>"></input>
+				</div>
+				<div class="col-sm-6 bottom-padding">
+					<input type="text" id="address2" name="address2" class="form-control" placeholder="Address 2"
+					value="<?php if(isset($_POST['address2'])) echo $_POST['address2'];?>"></input>
+				</div>		
+			</div>
+			<div class="row">
+				<div class="col-sm-6 bottom-padding">
+					<input type="text" id="city" name="city" class="form-control" placeholder="City"
+					value="<?php if(isset($_POST['city'])) echo $_POST['city'];?>"></input>
+				</div>		
+				<div class="col-sm-6 bottom-padding">
+					<input type="text" id="country" name="country" class="form-control" placeholder="Country"
+					value="<?php if(isset($_POST['country'])) echo $_POST['country'];?>"></input>
+				</div>	
+			</div>
+			<div class="row">
+				<div class="col-sm-6 bottom-padding">
+					<input type="text" id="zip_code" name="zip_code" class="form-control" placeholder="Zip Code"
+					value="<?php if(isset($_POST['zip_code'])) echo $_POST['zip_code'];?>"></input>
+				</div>
+				<div class="col-sm-6 bottom-padding">
+					<input type="text" id="phone_number" name="phone_number" class="form-control" placeholder="Phone Numver"
+					value="<?php if(isset($_POST['phone_number'])) echo $_POST['phone_number'];?>"></input>
+				</div>	
+			</div>
+			<div class="row">
+				<div class="col-sm-6 bottom-padding">
+					<input type="password" id="password" name="password" class="form-control" placeholder="Password"
+					value="<?php if(isset($_POST['password'])) echo $_POST['password'];?>"></input>
+					<span class="field-info">Atleast 6 characters, 1 number and 1 special character</span>
+				</div>	
+				<div class="col-sm-6 bottom-padding">
+					<input type="password" id="repassword" name="repassword" class="form-control" placeholder="Confirm Password"
+					value="<?php if(isset($_POST['repassword'])) echo $_POST['repassword'];?>"></input>
+				</div>		
+			</div>
+			<div class="row">
+				<div class="col-sm-3">
+				</div>
+				<div class="col-sm-6 bottom-padding">
+					<input type="submit" id="submit" name="submit" value="Create User" class="btn btn-success btn-block" onclick="return validateUserData();"></input>
 				</div>		
 			</div>
 		</form>

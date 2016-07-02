@@ -27,7 +27,17 @@ if(!isset($_SESSION['bUserLoggedIn']) ||
 		    </ul>
 		</nav>
   		<div class="jumbotron">
-  			<a href="http://<?=$_SESSION['userData']['user_ip']?>" target="_blank" class="btn btn-success">View</a>
+  			<div class="row">
+  				<div class="col-sm-12 text-center">
+  					<?= $_SESSION['userData']['company_name']?>
+  				</div>
+  			</div>
+  			<br>
+  			<div class="row">
+  				<div class="col-sm-12 text-center">
+  					<a href="http://<?=$_SESSION['userData']['user_ip']?>" target="_blank" class="btn btn-success">View</a>
+  				</div>
+  			</div>
   		</div>
 	</div>
 </body>

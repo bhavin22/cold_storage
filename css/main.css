@@ -14,3 +14,9 @@
 .field-info {
 	font-size: 10px;
 }
+.jumbotron {
+	padding: 20px 40px !important;
+}
+.bottom-padding {
+	padding-bottom: 20px;
+}

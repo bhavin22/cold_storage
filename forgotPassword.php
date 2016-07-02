@@ -52,28 +52,27 @@ if(isset($_POST) && isset($_POST['submit'])) {
 	  	<div class="jumbotron">
 		<form method="post" action="#">
 			<div class="row">
-				<div class="col-sm-4 text-right">
-					<label>Email</label>
+				<div class="col-sm-3">
 				</div>
-				<div class="col-sm-4">
-					<input type="text" id="email" name="email" class="form-control" 
-					value="<?php if(isset($_POST['email'])) echo $_POST['email'];?>"></input>
-				</div>
-			</div>
-			<br>
-			<div class="row">
-				<div class="col-sm-4">
-				</div>
-				<div class="col-sm-4">
+				<div class="col-sm-6">
 					<label id="error_msg" class="text-danger"><?=$error_msg?></label>
 				</div>		
 			</div>
 			<br>
 			<div class="row">
-				<div class="col-sm-4">
+				<div class="col-sm-3">
 				</div>
-				<div class="col-sm-4 text-center">
-					<input type="submit" id="submit" name="submit" value="Send Email" class="btn btn-success" onclick="return validateEmail();"></input>
+				<div class="col-sm-6">
+					<input type="text" id="email" name="email" class="form-control" placeholder="Email Address"
+					value="<?php if(isset($_POST['email'])) echo $_POST['email'];?>"></input>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-sm-3">
+				</div>
+				<div class="col-sm-6">
+					<input type="submit" id="submit" name="submit" value="Send Email" class="btn btn-success btn-block" onclick="return validateEmail();"></input>
 				</div>		
 			</div>
 		</form>
