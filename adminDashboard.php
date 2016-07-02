@@ -43,11 +43,11 @@ if(isset($_POST) && isset($_POST['submit'])) {
 <html>
 <head>
 	<title></title>
-	<link rel="stylesheet" type="text/css" href="libs/bootstrap/dist/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="stylesheet/main.css">
-	<script type="text/javascript" src="libs/jquery/dist/jquery.min.js"></script>
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" href="css/main.css">
+	<script src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="script/main.js"></script>
-	<script type="text/javascript" src="libs/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
 </head>
 <body>
 	<!-- Modal -->
@@ -73,9 +73,9 @@ if(isset($_POST) && isset($_POST['submit'])) {
 		        <?php
 		        for ($i=0; $i < count($arrUser); $i++) { 
 		        	echo "<tr>";
-		        	echo "<td>".$arrUser[$i]['user_name']."</td>";
-		        	echo "<td>".$arrUser[$i]['email']."</td>";
-		        	echo "<td>".$arrUser[$i]['user_ip']."</td>";
+		        	echo "<td>".$arrUser[$i]->user_name."</td>";
+		        	echo "<td>".$arrUser[$i]->email."</td>";
+		        	echo "<td>".$arrUser[$i]->user_ip."</td>";
 		        	echo "</tr>";
 		        }
 		        ?>

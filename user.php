@@ -6,16 +6,20 @@ class user {
 	}
 
 	public function validateUser($dbConn, $username, $password) {
-		$userData = null;
-		$query = "SELECT * FROM users WHERE user_name = ? AND password = ?";
+		$userData = array();
+		$query = "SELECT id, user_type, user_ip FROM users WHERE user_name = ? AND password = ?";
 		$stmt = $dbConn->prepare($query);
 		$stmt->bind_param("ss", $username, $password);
 		
 		$stmt->execute();
-		$result = $stmt->get_result();
-		while ($row = $result->fetch_assoc()) {
-	    	$userData = $row;	
+		$stmt->store_result();
+		$stmt->bind_result($id, $user_type, $user_ip);
+		while ($row = $stmt->fetch()) {
+			$userData['id'] = $id;
+			$userData['user_type'] = $user_type;
+			$userData['user_ip'] = $user_ip;
 	    }
+	    $stmt->free_result();
 	    $stmt->close();
 
 	    return $userData;
@@ -31,10 +35,12 @@ class user {
 		$stmt->bind_param("ss", $username, $email);
 		
 		$stmt->execute();
-		$result = $stmt->get_result();
-		while ($row = $result->fetch_assoc()) {
+		$stmt->store_result();
+		$num_of_rows = $stmt->num_rows;
+		if($num_of_rows > 0) {
 	    	$response->bUserExist = true;	
-	    }
+		}
+	    $stmt->free_result();
 	    $stmt->close();
 
 	    if($response->bUserExist) {
@@ -48,26 +54,39 @@ class user {
 		$stmt->execute();	
 		$stmt->close();
 
-		$query = "SELECT * FROM users WHERE user_type = 1";
+		$query = "SELECT user_name, email, user_ip FROM users WHERE user_type = 1";
 		$stmt = $dbConn->prepare($query);
 		$result = $stmt->execute();
-		$result = $stmt->get_result();
-		while ($row = $result->fetch_assoc()) {
-			$response->arrUser[] = $row;
+		$stmt->store_result();
+		$stmt->bind_result($user_name, $email, $user_ip);
+
+		while ($row = $stmt->fetch()) {
+			$user = new stdClass();
+			$user->user_name = $user_name;
+			$user->email = $email;
+			$user->user_ip = $user_ip;
+			$response->arrUser[] = $user;
 	    }
+	    $stmt->free_result();
 	    $stmt->close();
 	    return $response;
 	}
 
 	public function getUsers($dbConn) {
 		$arrUser = array();
-		$query = "SELECT * FROM users WHERE user_type = 1";
+		$query = "SELECT user_name, email, user_ip FROM users WHERE user_type = 1";
 		$stmt = $dbConn->prepare($query);
 		$result = $stmt->execute();
-		$result = $stmt->get_result();
-		while ($row = $result->fetch_assoc()) {
-			$arrUser[] = $row;
+		$stmt->store_result();
+		$stmt->bind_result($user_name, $email, $user_ip);
+		while ($row = $stmt->fetch()) {
+			$user = new stdClass();
+			$user->user_name = $user_name;
+			$user->email = $email;
+			$user->user_ip = $user_ip;
+			$arrUser[] = $user;
 	    }
+	    $stmt->free_result();
 	    $stmt->close();
 	    return $arrUser;
 	}
@@ -81,10 +100,13 @@ class user {
 		$stmt->bind_param("s", $email);
 		
 		$stmt->execute();
-		$result = $stmt->get_result();
-		while ($row = $result->fetch_assoc()) {
+		$stmt->store_result();
+		$num_of_rows = $stmt->num_rows;
+		
+		if ($num_of_rows > 0) {
 	    	$response->bEmailExist = true;	
 	    }
+	    $stmt->free_result();
 	    $stmt->close();
 	    if(!$response->bEmailExist) {
 	    	return $response;
@@ -108,10 +130,12 @@ class user {
 		$stmt->bind_param("ss", $email, $token);
 		
 		$stmt->execute();
-		$result = $stmt->get_result();
-		while ($row = $result->fetch_assoc()) {
+		$stmt->store_result();
+		$num_of_rows = $stmt->num_rows;
+		if ($num_of_rows > 0) {
 	    	$bValid = true;
 	    }
+	    $stmt->free_result();
 	    $stmt->close();
 	    return $bValid;
 	}

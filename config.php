@@ -3,7 +3,7 @@
 $hostname='localhost';
 $username='root';
 $password='';
-$dbname='cold_storage';
+$dbname='icahmt';
 
 try 
 {

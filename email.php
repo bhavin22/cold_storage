@@ -18,12 +18,13 @@ class email {
 		$mail = new PHPMailer;
 
 		$mail->isSMTP(); 
-		$mail->Host = $this->host; 
-		$mail->SMTPAuth = true;                             
-		$mail->Username = $this->user;            
-		$mail->Password = $this->password;                         
-		$mail->SMTPSecure = 'tls';                           
-		$mail->Port = 587;                         
+		$mail->Host = localhost;
+		// $mail->Host = $this->host; 
+		// $mail->SMTPAuth = true;                             
+		// $mail->Username = $this->user;            
+		// $mail->Password = $this->password;                         
+		// $mail->SMTPSecure = 'tls';                           
+		// $mail->Port = 25;                         
 
 		$mail->setFrom($this->user);
 		$mail->addAddress($to);
