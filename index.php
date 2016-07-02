@@ -213,7 +213,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 section-heading text-center">
-					<h2 class="to-animate">Work</h2>
+					<h2 class="to-animate">Projects</h2>
 					<div class="row">
 						<div class="col-md-8 col-md-offset-2 subtext to-animate">
 							<h3>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</h3>
