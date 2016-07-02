@@ -5,19 +5,20 @@ class user {
 		
 	}
 
-	public function validateUser($dbConn, $username, $password) {
+	public function validateUser($dbConn, $user_name, $password) {
 		$userData = array();
-		$query = "SELECT id, user_type, user_ip FROM users WHERE user_name = ? AND password = ?";
+		$query = "SELECT id, user_type, user_ip, company_name FROM users WHERE user_name = ? AND password = ?";
 		$stmt = $dbConn->prepare($query);
-		$stmt->bind_param("ss", $username, $password);
+		$stmt->bind_param("ss", $user_name, $password);
 		
 		$stmt->execute();
 		$stmt->store_result();
-		$stmt->bind_result($id, $user_type, $user_ip);
+		$stmt->bind_result($id, $user_type, $user_ip, $company_name);
 		while ($row = $stmt->fetch()) {
 			$userData['id'] = $id;
 			$userData['user_type'] = $user_type;
 			$userData['user_ip'] = $user_ip;
+			$userData['company_name'] = $company_name;
 	    }
 	    $stmt->free_result();
 	    $stmt->close();
@@ -25,14 +26,14 @@ class user {
 	    return $userData;
 	}
 
-	public function createUser($dbConn, $username, $email, $password, $ip) {
+	public function createUser($dbConn, $company_name, $user_name, $email, $ip, $password, $address1, $address2, $city, $country, $zip_code, $phone_number) {
 		$response = new stdClass();
 		$response->bUserExist = false;
 		$response->arrUser = array();
 
 		$query = "SELECT * FROM users WHERE user_name = ? OR email = ?";
 		$stmt = $dbConn->prepare($query);
-		$stmt->bind_param("ss", $username, $email);
+		$stmt->bind_param("ss", $user_name, $email);
 		
 		$stmt->execute();
 		$stmt->store_result();
@@ -48,23 +49,25 @@ class user {
 	    }
 
 
-		$query = "INSERT INTO users(user_name, email, password, user_type, user_ip) values(?,?,?,1,?)";
+		$query = "INSERT INTO users(company_name, user_name, email, user_ip, password, user_type, address1, address2, city, country, zip_code, phone_number) values(?,?,?,?,?,1,?,?,?,?,?,?)";
 		$stmt = $dbConn->prepare($query);
-		$stmt->bind_param("ssss", $username, $email, $password, $ip);
+		$stmt->bind_param("sssssssssss", $company_name, $user_name, $email, $ip, $password, $address1, $address2, $city, $country, $zip_code, $phone_number);
 		$stmt->execute();	
 		$stmt->close();
 
-		$query = "SELECT user_name, email, user_ip FROM users WHERE user_type = 1";
+		$query = "SELECT company_name, user_name, email, user_ip, phone_number FROM users WHERE user_type = 1";
 		$stmt = $dbConn->prepare($query);
 		$result = $stmt->execute();
 		$stmt->store_result();
-		$stmt->bind_result($user_name, $email, $user_ip);
+		$stmt->bind_result($company_name, $user_name, $email, $user_ip, $phone_number);
 
 		while ($row = $stmt->fetch()) {
 			$user = new stdClass();
+			$user->company_name = $company_name;
 			$user->user_name = $user_name;
 			$user->email = $email;
 			$user->user_ip = $user_ip;
+			$user->phone_number = $phone_number;
 			$response->arrUser[] = $user;
 	    }
 	    $stmt->free_result();
@@ -74,16 +77,18 @@ class user {
 
 	public function getUsers($dbConn) {
 		$arrUser = array();
-		$query = "SELECT user_name, email, user_ip FROM users WHERE user_type = 1";
+		$query = "SELECT company_name, user_name, email, user_ip, phone_number FROM users WHERE user_type = 1";
 		$stmt = $dbConn->prepare($query);
 		$result = $stmt->execute();
 		$stmt->store_result();
-		$stmt->bind_result($user_name, $email, $user_ip);
+		$stmt->bind_result($company_name, $user_name, $email, $user_ip, $phone_number);
 		while ($row = $stmt->fetch()) {
 			$user = new stdClass();
+			$user->company_name = $company_name;
 			$user->user_name = $user_name;
 			$user->email = $email;
 			$user->user_ip = $user_ip;
+			$user->phone_number = $phone_number;
 			$arrUser[] = $user;
 	    }
 	    $stmt->free_result();

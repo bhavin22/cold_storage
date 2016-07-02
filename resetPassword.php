@@ -35,8 +35,8 @@ if(isset($_POST) && isset($_POST['submit'])) {
 	$obj = new user();
 	$bValid = $obj->validateResetPassword($dbConn, $_GET['email'], strval($_GET['token']));
 	if(!isset($bValid) || !$bValid) {
-		header("location:login.php");
-		exit();
+		// header("location:login.php");
+		// exit();
 	}
 } else {
 	header("location:login.php");
@@ -64,39 +64,37 @@ if(isset($_POST) && isset($_POST['submit'])) {
 	  	<div class="jumbotron">
 		<form method="post" action="#">
 			<div class="row">
-				<div class="col-sm-4 text-right">
-					<label>Password</label>
+				<div class="col-sm-3">
 				</div>
-				<div class="col-sm-4">
-					<input type="password" id="password" name="password" class="form-control" 
+				<div class="col-sm-6">
+					<label id="error_msg" class="text-danger"><?=$error_msg?></label>
+				</div>		
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-sm-3">
+				</div>
+				<div class="col-sm-6">
+					<input type="password" id="password" name="password" class="form-control" placeholder="Password"
 					value="<?php if(isset($_POST['password'])) echo $_POST['password'];?>"></input>
 					<span class="field-info">Atleast 6 characters, 1 number and 1 special character</span>
 				</div>		
 			</div>
 			<br>
 			<div class="row">
-				<div class="col-sm-4 text-right">
-					<label>Confirm Password</label>
+				<div class="col-sm-3">
 				</div>
-				<div class="col-sm-4">
-					<input type="password" id="repassword" name="repassword" class="form-control" 
+				<div class="col-sm-6">
+					<input type="password" id="repassword" name="repassword" class="form-control" placeholder="Confirm Password"
 					value="<?php if(isset($_POST['repassword'])) echo $_POST['repassword'];?>"></input>
 				</div>		
 			</div>
 			<br>
 			<div class="row">
-				<div class="col-sm-4">
+				<div class="col-sm-3">
 				</div>
-				<div class="col-sm-4">
-					<label id="error_msg" class="text-danger"><?=$error_msg?></label>
-				</div>		
-			</div>
-			<br>
-			<div class="row">
-				<div class="col-sm-4">
-				</div>
-				<div class="col-sm-4 text-center">
-					<input type="submit" id="submit" name="submit" value="Reset Password" class="btn btn-success" onclick="return validatePasswords();"></input>
+				<div class="col-sm-6">
+					<input type="submit" id="submit" name="submit" value="Reset Password" class="btn btn-success btn-block" onclick="return validatePasswords();"></input>
 				</div>		
 			</div>
 		</form>

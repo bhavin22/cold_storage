@@ -15,15 +15,15 @@ if(isset($_SESSION['bUserLoggedIn']) &&
 
 $error_msg = "";
 if(isset($_POST) && isset($_POST['submit'])) {
-	if(!isset($_POST['username']) ||
-		empty($_POST['username'])) {
-		$error_msg = "Please enter username";
+	if(!isset($_POST['user_name']) ||
+		empty($_POST['user_name'])) {
+		$error_msg = "Please enter user name";
 	} else if (!isset($_POST['password']) ||
 		empty($_POST['password'])) {
 		$error_msg = "Please enter password";
 	} else {
 		$obj = new user();
-		$userData = $obj->validateUser($dbConn, $_POST['username'], $_POST['password']);
+		$userData = $obj->validateUser($dbConn, $_POST['user_name'], $_POST['password']);
 		if(isset($userData) && $userData !== null && isset($userData['id'])) {
 			$_SESSION['bUserLoggedIn'] = true;
 			$_SESSION['userType'] = $userData['user_type'];
@@ -35,7 +35,7 @@ if(isset($_POST) && isset($_POST['submit'])) {
 			}
 			exit();
 		} else {
-			$error_msg = "Username or password is incorrect";
+			$error_msg = "User_name or password is incorrect";
 		}
 	}
 }
@@ -54,52 +54,50 @@ if(isset($_POST) && isset($_POST['submit'])) {
 	<div class="container">
 		<nav class="navbar navbar-default">
 		    <ul class="nav navbar-nav navbar-right">
-		    	<li><a href="index.php">Home</a></li>
-		        <li><a href="login.php" class="menu-link">Login</a></li>
+		    	<li><a href="index.php" class="menu-link">Home</a></li>
 		    </ul>
 		</nav>
 	  	<div class="jumbotron">
 		<form method="post" action="#">
 			<div class="row">
-				<div class="col-sm-4 text-right">
-					<label>User Name</label>
+				<div class="col-sm-3">
 				</div>
-				<div class="col-sm-4">
-					<input type="text" id="username" name="username" class="form-control" 
-					value="<?php if(isset($_POST['username'])) echo $_POST['username'];?>"></input>
-				</div>
-			</div>
-			<br>
-			<div class="row">
-				<div class="col-sm-4 text-right">
-					<label>Password</label>
-				</div>
-				<div class="col-sm-4">
-					<input type="password" id="password" name="password" class="form-control" 
-					value="<?php if(isset($_POST['password'])) echo $_POST['password'];?>"></input>
-				</div>		
-			</div>
-			<div class="row">
-				<div class="col-sm-4">
-				</div>
-				<div class="col-sm-4">
-					<a href="forgotPassword.php">Forgot Password?</a>
-				</div>		
-			</div>
-			<br>
-			<div class="row">
-				<div class="col-sm-4">
-				</div>
-				<div class="col-sm-4">
+				<div class="col-sm-6">
 					<label id="error_msg" class="text-danger"><?=$error_msg?></label>
 				</div>		
 			</div>
 			<br>
 			<div class="row">
-				<div class="col-sm-4">
+				<div class="col-sm-3">
 				</div>
-				<div class="col-sm-4 text-center">
-					<input type="submit" id="submit" name="submit" value="Login" class="btn btn-success" onclick="return validateLogin();"></input>
+				<div class="col-sm-6">
+					<input type="text" id="user_name" name="user_name" class="form-control"  placeholder="User Name"
+					value="<?php if(isset($_POST['user_name'])) echo $_POST['user_name'];?>"></input>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-sm-3">
+				</div>
+				<div class="col-sm-6">
+					<input type="password" id="password" name="password" class="form-control" placeholder="Password" 
+					value="<?php if(isset($_POST['password'])) echo $_POST['password'];?>"></input>
+				</div>		
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-sm-3">
+				</div>
+				<div class="col-sm-6">
+					<input type="submit" id="submit" name="submit" value="Login" class="btn btn-success btn-block" onclick="return validateLogin();"></input>
+				</div>		
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-sm-3">
+				</div>
+				<div class="col-sm-6 text-center">
+					<a href="forgotPassword.php">Forgot Password?</a>
 				</div>		
 			</div>
 		</form>
