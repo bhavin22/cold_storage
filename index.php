@@ -69,118 +69,6 @@
 	-->
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/main.css">
-
-	<!-- Styleswitcher ( This style is for demo purposes only, you may delete this anytime. ) -->
-	<link rel="stylesheet" id="theme-switch" href="css/style.css">
-	<!-- End demo purposes only -->
-
-
-	<style>
-	/* For demo purpose only */
-	
-	/* For Demo Purposes Only ( You can delete this anytime :-) */
-	#colour-variations {
-		padding: 10px;
-		-webkit-transition: 0.5s;
-	  	-o-transition: 0.5s;
-	  	transition: 0.5s;
-		width: 140px;
-		position: fixed;
-		left: 0;
-		top: 100px;
-		z-index: 999999;
-		background: #fff;
-		/*border-radius: 4px;*/
-		border-top-right-radius: 4px;
-		border-bottom-right-radius: 4px;
-		-webkit-box-shadow: 0 0 9px 0 rgba(0,0,0,.1);
-		-moz-box-shadow: 0 0 9px 0 rgba(0,0,0,.1);
-		-ms-box-shadow: 0 0 9px 0 rgba(0,0,0,.1);
-		box-shadow: 0 0 9px 0 rgba(0,0,0,.1);
-	}
-	#colour-variations.sleep {
-		margin-left: -140px;
-	}
-	#colour-variations h3 {
-		text-align: center;;
-		font-size: 11px;
-		letter-spacing: 2px;
-		text-transform: uppercase;
-		color: #777;
-		margin: 0 0 10px 0;
-		padding: 0;;
-	}
-	#colour-variations ul,
-	#colour-variations ul li {
-		padding: 0;
-		margin: 0;
-	}
-	#colour-variations li {
-		list-style: none;
-		display: block;
-		margin-bottom: 5px!important;
-		float: left;
-		width: 100%;
-	}
-	#colour-variations li a {
-		width: 100%;
-		position: relative;
-		display: block;
-		overflow: hidden;
-		-webkit-border-radius: 4px;
-		-moz-border-radius: 4px;
-		-ms-border-radius: 4px;
-		border-radius: 4px;
-		-webkit-transition: 0.4s;
-		-o-transition: 0.4s;
-		transition: 0.4s;
-	}
-	#colour-variations li a:hover {
-	  	opacity: .9;
-	}
-	#colour-variations li a > span {
-		width: 33.33%;
-		height: 20px;
-		float: left;
-		display: -moz-inline-stack;
-		display: inline-block;
-		zoom: 1;
-		*display: inline;
-	}
-	
-
-	.option-toggle {
-		position: absolute;
-		right: 0;
-		top: 0;
-		margin-top: 5px;
-		margin-right: -30px;
-		width: 30px;
-		height: 30px;
-		background: #f64662;
-		text-align: center;
-		border-top-right-radius: 4px;
-		border-bottom-right-radius: 4px;
-		color: #fff;
-		cursor: pointer;
-		-webkit-box-shadow: 0 0 9px 0 rgba(0,0,0,.1);
-		-moz-box-shadow: 0 0 9px 0 rgba(0,0,0,.1);
-		-ms-box-shadow: 0 0 9px 0 rgba(0,0,0,.1);
-		box-shadow: 0 0 9px 0 rgba(0,0,0,.1);
-	}
-	.option-toggle i {
-		top: 2px;
-		position: relative;
-	}
-	.option-toggle:hover, .option-toggle:focus, .option-toggle:active {
-		color:  #fff;
-		text-decoration: none;
-		outline: none;
-	}
-	</style>
-	<!-- End demo purposes only -->
-
-
 	<!-- Modernizr JS -->
 	<script src="js/modernizr-2.6.2.min.js"></script>
 	<!-- FOR IE9 below -->
@@ -197,17 +85,18 @@
 		        <div class="navbar-header">
 		        	<!-- Mobile Toggle Menu Button -->
 					<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><i></i></a>
-		         <a class="navbar-brand" href="index.php">ICAHMT</a> 
+		         <a class="navbar-brand logo" href="index.php"></a> 
 		        </div>
-		        <div id="navbar" class="navbar-collapse collapse">
+		        <div id="navbar" class="navbar-collapse collapse navigation-bar">
 		          <ul class="nav navbar-nav navbar-right">
 		            <li class="active"><a href="index.php" data-nav-section="home"><span>Home</span></a></li>
-		            <li><a id="login" href="#"><span>Login</span></a></li>
-		            <li><a href="#" data-nav-section="work"><span>Work</span></a></li>
-		            <li><a href="#" data-nav-section="testimonials"><span>Testimonials</span></a></li>
+		            <li><a href="#" id="video" data-nav-section="video"><span>Video</span></a></li>
+		            <li><a href="#" data-nav-section="work"><span>Projects</span></a></li>
+		            <li><a href="#" data-nav-section="testimonials"><span>Customer Says</span></a></li>
 		            <li><a href="#" data-nav-section="services"><span>Services</span></a></li>
-		            <li><a href="#" data-nav-section="about"><span>About</span></a></li>
-		            <li><a href="#" data-nav-section="contact"><span>Contact</span></a></li>
+		            <li><a href="#" data-nav-section="about"><span>About us</span></a></li>
+		            <li><a href="#" data-nav-section="contact"><span>Contact us</span></a></li>
+		            <li><a id="login" href="#"><span>Account</span></a></li>
 		          </ul>
 		        </div>
 			    </nav>
@@ -268,13 +157,11 @@
 			</div>
 			<div class="row watch-video text-center to-animate">
 				<span>Watch the video</span>
-
-				<a href="https://vimeo.com/channels/staffpicks/93951774" class="popup-vimeo btn-video"><i class="icon-play2"></i></a>
+				<a href="https://www.youtube.com/watch?v=BM2fSDFrtoU" class="popup-vimeo btn-video"><i class="icon-play2"></i></a>
 			</div>
 		</div>
 	</section>
-
-	<section id="fh5co-work" data-section="work">
+	<section id="fh5co-work" class="projects" data-section="work">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 section-heading text-center">
@@ -286,105 +173,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="row row-bottom-padded-sm">
-				<div class="col-md-4 col-sm-6 col-xxs-12">
-					<a href="images/work_1.jpg" class="fh5co-project-item image-popup to-animate">
-						<img src="images/work_1.jpg" alt="Image" class="img-responsive">
-						<div class="fh5co-text">
-						<h2>Project 1</h2>
-						<span>Branding</span>
-						</div>
-					</a>
-				</div>
-				<div class="col-md-4 col-sm-6 col-xxs-12">
-					<a href="images/work_2.jpg" class="fh5co-project-item image-popup to-animate">
-						<img src="images/work_2.jpg" alt="Image" class="img-responsive">
-						<div class="fh5co-text">
-						<h2>Project 2</h2>
-						<span>Web</span>
-						</div>
-					</a>
-				</div>
-
-				<div class="clearfix visible-sm-block"></div>
-
-				<div class="col-md-4 col-sm-6 col-xxs-12">
-					<a href="images/work_3.jpg" class="fh5co-project-item image-popup to-animate">
-						<img src="images/work_3.jpg" alt="Image" class="img-responsive">
-						<div class="fh5co-text">
-						<h2>Project 3</h2>
-						<span>Web</span>
-						</div>
-					</a>
-				</div>
-				<div class="col-md-4 col-sm-6 col-xxs-12">
-					<a href="images/work_4.jpg" class="fh5co-project-item image-popup to-animate">
-						<img src="images/work_4.jpg" alt="Image" class="img-responsive">
-						<div class="fh5co-text">
-						<h2>Project 4</h2>
-						<span>UI/UX</span>
-						</div>
-					</a>
-				</div>
-				
-				<div class="clearfix visible-sm-block"></div>
-
-				<div class="col-md-4 col-sm-6 col-xxs-12">
-					<a href="images/work_5.jpg" class="fh5co-project-item image-popup to-animate">
-						<img src="images/work_5.jpg" alt="Image" class="img-responsive">
-						<div class="fh5co-text">
-						<h2>Project 1</h2>
-						<span>Photography</span>
-						</div>
-					</a>
-				</div>
-				<div class="col-md-4 col-sm-6 col-xxs-12">
-					<a href="images/work_6.jpg" class="fh5co-project-item image-popup to-animate">
-						<img src="images/work_6.jpg" alt="Image" class="img-responsive">
-						<div class="fh5co-text">
-						<h2>Project 2</h2>
-						<span>Illustration</span>
-						</div>
-					</a>
-				</div>
-				
-				<div class="clearfix visible-sm-block"></div>
-
-				<div class="col-md-4 col-sm-6 col-xxs-12">
-					<a href="images/work_7.jpg" class="fh5co-project-item image-popup to-animate">
-						<img src="images/work_7.jpg" alt="Image" class="img-responsive">
-						<div class="fh5co-text">
-						<h2>Project 3</h2>
-						<span>Web</span>
-						</div>
-					</a>
-				</div>
-				<div class="col-md-4 col-sm-6 col-xxs-12">
-					<a href="images/work_8.jpg" class="fh5co-project-item image-popup to-animate">
-						<img src="images/work_8.jpg" alt="Image" class="img-responsive">
-						<div class="fh5co-text">
-						<h2>Project 4</h2>
-						<span>Sketch</span>
-						</div>
-					</a>
-				</div>
-
-				<div class="clearfix visible-sm-block"></div>
-
-				<div class="col-md-4 col-sm-6 col-xxs-12">
-					<a href="images/work_1.jpg" class="fh5co-project-item image-popup to-animate">
-						<img src="images/work_1.jpg" alt="Image" class="img-responsive">
-						<div class="fh5co-text">
-						<h2>Project 2</h2>
-						<span>Illustration</span>
-						</div>
-					</a>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12 text-center to-animate">
-					<p>* Demo images from <a href="http://plmd.me/" target="_blank">plmd.me</a></p>
-				</div>
+			<div class="row row-bottom-padded-sm project_container">
 			</div>
 		</div>
 	</section>
@@ -605,11 +394,11 @@
 					<ul class="fh5co-contact-info">
 						<li class="fh5co-contact-address ">
 							<i class="icon-home"></i>
-							5555 Love Paradise 56 New Clity 5655, <br>Excel Tower United Kingdom
+							Industrial controls & automation systems, <br>Gfc-24, new durga bazar, <br>himatnagar
 						</li>
-						<li><i class="icon-phone"></i> (123) 465-6789</li>
-						<li><i class="icon-envelope"></i>info@freehtml5.co</li>
-						<li><i class="icon-globe"></i> <a href="http://freehtml5.co/" target="_blank">freehtml5.co</a></li>
+						<li><i class="icon-phone"></i> 02772 262667</li>
+						<li><i class="icon-envelope"></i>icahmt@gmail.com</li>
+						<li><i class="icon-globe"></i> <a href="http://freehtml5.co/" target="_blank">www.icahmt.com</a></li>
 					</ul>
 				</div>
 
@@ -663,45 +452,6 @@
 			</div>
 		</div>
 	</footer>
-	
-	
-	<!-- For demo purposes Only ( You may delete this anytime :-) -->
-	<div id="colour-variations">
-		<a class="option-toggle"><i class="icon-gear"></i></a>
-		<h3>Preset Colors</h3>
-		<ul>
-			<li>
-				<a href="javascript: void(0);" data-theme="style">
-					<span style="background: #3f95ea;"></span>
-					<span style="background: #52d3aa;"></span>
-					<span style="background: #f2f2f2;"></span>
-				</a>
-			</li>
-			<li>
-				<a href="javascript: void(0);" data-theme="style2">
-					<span style="background: #329998;"></span>
-					<span style="background: #6cc99c;"></span>
-					<span style="background: #f2f2f2;"></span>
-				</a>
-			</li>
-			<li>
-				<a href="javascript: void(0);" data-theme="style3">
-					<span style="background: #9f466e;"></span>
-					<span style="background: #c24d67;"></span>
-					<span style="background: #f2f2f2;"></span>
-				</a>
-			</li>
-			<li>
-				<a href="javascript: void(0);" data-theme="style4">
-					<span style="background: #21825C;"></span>
-					<span style="background: #A4D792;"></span>
-					<span style="background: #f2f2f2;"></span>
-				</a>
-			</li>
-			
-		</ul>
-	</div>
-	<!-- End demo purposes only -->
 
 	
 	<!-- jQuery -->
@@ -718,33 +468,14 @@
 	<script src="js/jquery.countTo.js"></script>
 	<!-- Magnific Popup -->
 	<script src="js/jquery.magnific-popup.min.js"></script>
-	<script src="js/magnific-popup-options.js"></script>
 	<!-- Google Map -->
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCefOgb1ZWqYtj7raVSmN4PL2WkTrc-KyA&sensor=false"></script>
 	<script src="js/google_map.js"></script>
 
-	<!-- For demo purposes only styleswitcher ( You may delete this anytime ) -->
-	<script src="js/jquery.style.switcher.js"></script>
-	<script>
-		$(function(){
-			$('#colour-variations ul').styleSwitcher({
-				defaultThemeId: 'theme-switch',
-				hasPreview: false,
-				cookie: {
-		          	expires: 30,
-		          	isManagingLoad: true
-		      	}
-			});	
-			$('.option-toggle').click(function() {
-				$('#colour-variations').toggleClass('sleep');
-			});
-		});
-	</script>
-	<!-- End demo purposes only -->
-
 	<!-- Main JS (Do not remove) -->
 	<script src="js/main.js"></script>
 	<script src="script/main.js"></script>
+	<script src="js/magnific-popup-options.js"></script>
 
 	</body>
 </html>
