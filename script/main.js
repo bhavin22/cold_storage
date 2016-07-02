@@ -7,6 +7,12 @@ $('#login').on('click', function(){
 	window.location = "/login.php";
 });
 
+$('#video').on('click',function(){
+	$('html, body').animate({
+        scrollTop: $(".watch-video").offset().top -200
+    }, 2000);
+})
+
 function validateUserData() {
 	var company_name = $('#company_name');
 	var user_name = $('#user_name');
@@ -109,4 +115,60 @@ function validatePasswords() {
 	} else {
 		return true;
 	}
+}
+
+var projects = [{
+		image:'./images/projects/1.jpg',
+		title:'Project 1',
+		description:'THis is it.'
+	},
+	{
+	image:'./images/projects/2.jpg',
+	title:'Project 2',
+	description:'THis is it.'
+},
+{
+	image:'./images/projects/3.jpg',
+	title:'Project 3',
+	description:'THis is it.'
+},
+{
+	image:'./images/projects/4.jpg',
+	title:'Project 4',
+	description:'THis is it.'
+},
+{
+	image:'./images/projects/5.jpg',
+	title:'Project 5',
+	description:'THis is it.'
+},
+{
+	image:'./images/projects/6.jpg',
+	title:'Project 6',
+	description:'THis is it.'
+},{
+	image:'./images/projects/7.jpg',
+	title:'Project 7',
+	description:'THis is it.'
+}];
+$(document).ready(function(){
+	var $project_container = $(".project_container");
+	var $projects = createProjects();
+	$project_container.append($projects);
+});
+function createProjects(){
+	var length = projects.length;
+	var projectsHtml = "";
+	for(var i = 0;i<length;i++){
+		projectsHtml += '<div class="col-md-4 col-sm-6 col-xxs-12">\n\
+					<a href="' + projects[i].image + '" class="fh5co-project-item image-popup to-animate">\n\
+						<img src="' + projects[i].image + '" alt="Image" class="project_image img-responsive">\n\
+						<div class="fh5co-text">\n\
+						<h2>' + projects[i].title + '</h2>\n\
+						<span>' + projects[i].description + '</span>\n\
+						</div>\n\
+					</a>\n\
+				</div>';
+	}
+	return $(projectsHtml);
 }
