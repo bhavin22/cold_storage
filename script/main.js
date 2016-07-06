@@ -22,7 +22,7 @@ $(document).ready(function() {
 $('#video').on('click',function(){
 	$('html, body').animate({
         scrollTop: $(".watch-video").offset().top -200
-    }, 2000);
+    }, 500);
 })
 
 function validateUserData() {
