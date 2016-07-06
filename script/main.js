@@ -2,10 +2,22 @@ var emailRegEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@
 var passwordRegEx = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,}$/;
 var ipRegEx = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
 var phoneRegEx = /^[789]\d{9}$/;
-
+var selectedId = [];
 $('#login').on('click', function(){
 	window.location = "/login.php";
 });
+
+$(document).ready(function() {
+	$('.userCheckbox').on('change', function(evt) {
+		if(evt.currentTarget.checked) {
+			selectedId.push(evt.currentTarget.value);
+		} else {
+			selectedId.splice(selectedId.indexOf(evt.currentTarget.value), 1);
+		}
+		$('.userId').val(selectedId);
+	});
+});
+
 
 $('#video').on('click',function(){
 	$('html, body').animate({

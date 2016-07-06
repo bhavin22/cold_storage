@@ -55,14 +55,15 @@ class user {
 		$stmt->execute();	
 		$stmt->close();
 
-		$query = "SELECT company_name, user_name, email, user_ip, phone_number FROM users WHERE user_type = 1";
+		$query = "SELECT id, company_name, user_name, email, user_ip, phone_number FROM users WHERE user_type = 1";
 		$stmt = $dbConn->prepare($query);
 		$result = $stmt->execute();
 		$stmt->store_result();
-		$stmt->bind_result($company_name, $user_name, $email, $user_ip, $phone_number);
+		$stmt->bind_result($id, $company_name, $user_name, $email, $user_ip, $phone_number);
 
 		while ($row = $stmt->fetch()) {
 			$user = new stdClass();
+			$user->id = $id;
 			$user->company_name = $company_name;
 			$user->user_name = $user_name;
 			$user->email = $email;
@@ -77,13 +78,14 @@ class user {
 
 	public function getUsers($dbConn) {
 		$arrUser = array();
-		$query = "SELECT company_name, user_name, email, user_ip, phone_number FROM users WHERE user_type = 1";
+		$query = "SELECT id, company_name, user_name, email, user_ip, phone_number FROM users WHERE user_type = 1";
 		$stmt = $dbConn->prepare($query);
 		$result = $stmt->execute();
 		$stmt->store_result();
-		$stmt->bind_result($company_name, $user_name, $email, $user_ip, $phone_number);
+		$stmt->bind_result($id, $company_name, $user_name, $email, $user_ip, $phone_number);
 		while ($row = $stmt->fetch()) {
 			$user = new stdClass();
+			$user->id = $id;
 			$user->company_name = $company_name;
 			$user->user_name = $user_name;
 			$user->email = $email;
@@ -151,6 +153,39 @@ class user {
 		$stmt->bind_param("ss", $password, $email);
 		
 		$stmt->execute();
+	}
+
+	public function deleteUsers($dbConn, $userId) {
+		$arrUser = array();
+		$arrId = explode(',', $userId);
+		$query = "DELETE FROM users WHERE id IN (";
+		for($i=0; $i<count($arrId); $i++) {
+			$query .= "'".$arrId[$i]."',";
+		}
+		$query = rtrim($query, ',');
+		$query .= ");";
+		$stmt = $dbConn->prepare($query);
+		$result = $stmt->execute();
+		
+		$query = "SELECT id, company_name, user_name, email, user_ip, phone_number FROM users WHERE user_type = 1";
+		$stmt = $dbConn->prepare($query);
+		$result = $stmt->execute();
+		$stmt->store_result();
+		$stmt->bind_result($id, $company_name, $user_name, $email, $user_ip, $phone_number);
+
+		while ($row = $stmt->fetch()) {
+			$user = new stdClass();
+			$user->id = $id;
+			$user->company_name = $company_name;
+			$user->user_name = $user_name;
+			$user->email = $email;
+			$user->user_ip = $user_ip;
+			$user->phone_number = $phone_number;
+			$arrUser[] = $user;
+	    }
+	    $stmt->free_result();
+	    $stmt->close();
+	    return $arrUser;
 	}
 
 	function generateRandomString($length = 10) {
