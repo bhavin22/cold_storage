@@ -151,11 +151,46 @@ var projects = [{
 	title:'Project 7',
 	description:'THis is it.'
 }];
+
+var testimonials = [{
+	author:'John Doe',
+	company:'First Steps Co.',
+	testimonial:'“Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.”1',
+	designation:'CEO'
+},{
+	author:'John Doe',
+	company:'First Steps Co.',
+	testimonial:'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.2',
+	designation:'CEO'
+},{
+	author:'John Doe',
+	company:'First Steps Co.',
+	testimonial:'“Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.”3',
+	designation:'CEO'
+},{
+	author:'John Doe',
+	company:'First Steps Co.',
+	testimonial:'“Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean."4',
+	designation:'CEO'
+},{
+	author:'John Doe',
+	company:'First Steps Co.',
+	testimonial:'“Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean."5',
+	designation:'CEO'
+},{
+	author:'John Doe',
+	company:'First Steps Co.',
+	testimonial:'“Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean."6',
+	designation:'CEO'
+}];
+
 $(document).ready(function(){
-	var $project_container = $(".project_container");
-	var $projects = createProjects();
-	$project_container.append($projects);
+	createProjects();
+	createTestimonials();
+	attachResizeEvent();
+	attachTestSliderEvents();
 });
+
 function createProjects(){
 	var length = projects.length;
 	var projectsHtml = "";
@@ -170,5 +205,87 @@ function createProjects(){
 					</a>\n\
 				</div>';
 	}
-	return $(projectsHtml);
+	var $project_container = $(".project_container");
+	$project_container.append($(projectsHtml));
+}
+
+var test_slider_width = 230; // With margin
+var test_margin = 10;
+var slides_in_view = [];
+
+function createTestimonials(){
+	var totalTestimonials = testimonials.length;
+	var $testSliderContainer = $('.test_slider_wrapper');
+	var testHtml = "";
+	for(var i = 0;i<totalTestimonials;i++){
+		testHtml += '<div class="test_slider_item">\n\
+						<div class="box-testimony">\n\
+							<blockquote class="to-animate-2">\n\
+								<p>&ldquo;' + testimonials[i].testimonial + '&rdquo;</p>\n\
+							</blockquote>\n\
+							<div class="author to-animate">\n\
+								<figure><img src="images/person1.jpg" alt="Person"></figure>\n\
+								<p>' + testimonials[i].author + ', ' + testimonials[i].designation + '<span class="subtext">'+testimonials[i].company + '</span>\n\
+								</p>\n\
+							</div>\n\
+						</div>\n\
+					</div>';
+	}
+	var $testimonials = $(testHtml);
+	$testSliderContainer.append($testimonials);
+	setSizeOfTestimonials();
+}
+
+function attachResizeEvent(){
+	$(window).resize(function(event){
+		setSizeOfTestimonials();
+	});
+}
+
+function setSizeOfTestimonials(){
+	var sliderParentWidth = $('.row').width();
+	var test_to_display = Math.floor(sliderParentWidth / test_slider_width) || 1;
+	var totalTestimonials = testimonials.length;
+	var testItemWidth = sliderParentWidth / test_to_display;
+	testItemWidth = testItemWidth < test_slider_width ? test_slider_width : testItemWidth;
+	var testSliderContainerWidth = testItemWidth  * totalTestimonials;
+	var $testSliderContainer = $('.test_slider_wrapper');
+	$testSliderContainer.css({'width':testSliderContainerWidth + 'px'});
+	$testSliderContainer.find('.test_slider_item').width(testItemWidth - 2 * test_margin);
+	slides_in_view = [0,test_to_display - 1];
+	setSlideInView(slides_in_view);
+}
+
+function setSlideInView(slideRange){
+	var $slideContainer = $('.test_slider_wrapper');
+	var totalSlides = testimonials.length;
+	if(slideRange[0] < 0) {
+		slideRange[0] += 1;
+		slideRange[1] += 1;
+		return slideRange;
+	}
+	if(slideRange[1] >= totalSlides){
+		slideRange[0] -= 1;
+		slideRange[1] -= 1;
+		return slideRange;
+	}
+	var $firstSlide = $($('.test_slider_item')[slideRange[0]]);
+	var slideLeft = $firstSlide.offset().left;
+	var $slideContainer = $('.test_slider_wrapper');
+	var leftToSet = $slideContainer.offset().left - slideLeft + test_margin;
+	$slideContainer.css("left",leftToSet + "px");
+	return slideRange;
+}
+
+function attachTestSliderEvents(){
+	var $nextButton = $('.test_next > span');
+	var $prevButton = $('.test_previous > span');
+	var $scrollDiv = $('.test_slider_wrapper');
+	var testWidth = $('.test_slider_item').width();
+	$nextButton.on('click',function(event){
+		slides_in_view = setSlideInView([slides_in_view[0]+1,slides_in_view[1]+1]);
+	});
+	$prevButton.on('click',function(event){
+		slides_in_view = setSlideInView([slides_in_view[0]-1,slides_in_view[1]-1]);
+	})
 }
