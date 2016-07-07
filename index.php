@@ -223,6 +223,11 @@
 			</div>
 			<div class="row row-bottom-padded-sm project_container">
 			</div>
+			<div class="row text-center more_link hide">
+				<div class="col-md-8 col-md-offset-2 subtext to-animate">
+					<h3><a target="_blank" href="./projects.php">More...</a></h3>
+				</div>
+			</div>
 		</div>
 	</section>
 

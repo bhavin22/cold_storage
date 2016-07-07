@@ -203,10 +203,11 @@ $(document).ready(function(){
 	attachTestSliderEvents();
 });
 
+var projects_to_show = 3;
 function createProjects(){
 	var length = projects.length;
 	var projectsHtml = "";
-	for(var i = 0;i<length;i++){
+	for(var i = 0;i<projects_to_show;i++){
 		projectsHtml += '<div class="col-md-4 col-sm-6 col-xxs-12">\n\
 					<a href="' + projects[i].image + '" class="fh5co-project-item image-popup to-animate">\n\
 						<img src="' + projects[i].image + '" alt="Image" class="project_image img-responsive">\n\
@@ -219,6 +220,11 @@ function createProjects(){
 	}
 	var $project_container = $(".project_container");
 	$project_container.append($(projectsHtml));
+	if(length > projects_to_show && Storage){
+		$('.more_link').removeClass('hide');
+		localStorage.setItem('projects',JSON.stringify(projects));
+	}
+
 }
 
 var test_slider_width = 230; // With margin
