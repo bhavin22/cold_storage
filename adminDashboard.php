@@ -4,7 +4,8 @@ require_once 'session.php';
 require_once 'user.php';
 
 if(!isset($_SESSION['bUserLoggedIn']) ||
-	$_SESSION['bUserLoggedIn'] !== true) {
+	$_SESSION['bUserLoggedIn'] !== true ||
+	$_SESSION['userType'] !== 0) {
 	header("location:login.php");
 	exit();
 }
@@ -82,59 +83,10 @@ if(isset($_POST)) {
 	<script src="js/bootstrap.min.js"></script>
 </head>
 <body>
-	<!-- Modal -->
-	<div id="userListModal" class="modal fade" role="dialog">
-	  <div class="modal-dialog">
-
-	    <!-- Modal content-->
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal">&times;</button>
-	        <h4 class="modal-title">Users</h4>
-	      </div>
-	      <div class="modal-body scrollable-div">
-	      	<table class="table">
-	      		<thead>
-	      			<tr>
-	      			<th class="hidden">ID</th>
-	      			<th>User Name</th>
-	      			<th>Company Name</th>
-	      			<th>IP</th>
-	      			<th>Phone Number</th>
-	      			<th></th>
-	      			<th></th>
-	      			</tr>
-	      		</thead>
-	      		<tbody>	      	
-		        <?php
-		        for ($i=0; $i < count($arrUser); $i++) { 
-		        	echo "<tr>";
-		        	echo "<td class='hidden'>".$arrUser[$i]->id."</td>";
-		        	echo "<td>".$arrUser[$i]->user_name."</td>";
-		        	echo "<td>".$arrUser[$i]->company_name."</td>";
-		        	echo "<td>".$arrUser[$i]->user_ip."</td>";
-		        	echo "<td>".$arrUser[$i]->phone_number."</td>";
-		        	echo "<td><span class='editUser'><i class='fa fa-pencil'></i></span></td>";
-		        	echo "<td><span class='deleteUser'><i class='fa fa-trash-o'></i></span></td>";
-
-		        	echo "</tr>";
-		        }
-		        ?>
-	        	</tbody>
-	        </table>
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	      </div>
-	    </div>
-
-	  </div>
-	</div>
 	<div class="container">
 		<nav class="navbar navbar-default">
 		    <ul class="nav navbar-nav navbar-right">
 		    	<li><a href="index.php">Home</a></li>
-		    	<li><a href="#" data-toggle="modal" data-target="#userListModal">User List</a></li>
 		        <li><a href="logout.php" class="menu-link">Logout</a></li>
 		    </ul>
 		</nav>
@@ -228,6 +180,7 @@ if(isset($_POST)) {
 					</form>
 			  	</div>
 			  	<div id="deleteUser" class="tab-pane fade in active">
+			  	<br>
 				    <table class="table">
 			      		<thead>
 			      			<tr>
@@ -267,7 +220,21 @@ if(isset($_POST)) {
 	        		</form>
 			  	</div>
 			  	<div id="editUser" class="tab-pane fade in active">
-			  		
+			  	<br>
+		  			<div class="row">
+		  				<div class="col-xs-3"></div>
+		  				<div class="col-xs-6">
+		  					<select id="editUserList" class="form-control">
+					  			<option selected disabled>Select User To Edit</option>
+					  			<?php
+						        for ($i=0; $i < count($arrUser); $i++) { 
+						        	
+						        	echo "<option value='".$arrUser[$i]->id."'>".$arrUser[$i]->user_name."</option>";
+						        }
+						        ?>
+					  		</select>
+		  				</div>
+		  			</div>
 			  	</div>
 			</div>
 		</div>

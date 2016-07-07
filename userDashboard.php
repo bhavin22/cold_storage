@@ -4,7 +4,8 @@ require_once 'session.php';
 require_once 'user.php';
 
 if(!isset($_SESSION['bUserLoggedIn']) ||
-	$_SESSION['bUserLoggedIn'] !== true) {
+	$_SESSION['bUserLoggedIn'] !== true ||
+	$_SESSION['userType'] !== 1) {
 	header("location:login.php");
 	exit();
 }

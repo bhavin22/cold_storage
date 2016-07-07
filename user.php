@@ -188,6 +188,42 @@ class user {
 	    return $arrUser;
 	}
 
+	public function getUserData($dbConn, $id) {
+		$user = new stdClass();
+		$query = "SELECT id, user_name, company_name, user_ip, address1, address2, city, country, zip_code, phone_number FROM users WHERE id = ?";
+		$stmt = $dbConn->prepare($query);
+		$stmt->bind_param("s", $id);
+		$result = $stmt->execute();
+		$stmt->store_result();
+		$stmt->bind_result($id, $user_name, $company_name, $user_ip, $address1, $address2, $city, $country, $zip_code, $phone_number);
+		while ($row = $stmt->fetch()) {
+			$user->id = $id;
+			$user->user_name = $user_name;
+			$user->company_name = $company_name;
+			$user->ip = $user_ip;
+			$user->address1 = $address1;
+			$user->address2 = $address2;
+			$user->city = $city;
+			$user->country = $country;
+			$user->zip_code = $zip_code;
+			$user->phone_number = $phone_number;
+			break;
+	    }
+
+	    $stmt->free_result();
+	    $stmt->close();
+	    return $user;
+	}
+
+	public function editUser($dbConn, $id, $company_name, $user_ip, $address1, $address2, $city, $country, $zip_code, $phone_number) {
+		$query = "UPDATE users SET company_name = ?, user_ip = ?, address1 = ?, address2 = ?, city = ?, country = ?, zip_code = ?, phone_number = ? WHERE id = ?";
+		$stmt = $dbConn->prepare($query);
+		$stmt->bind_param("sssssssss", $company_name, $user_ip, $address1, $address2, $city, $country, $zip_code, $phone_number, $id);
+		
+		$stmt->execute();
+	    $stmt->close();
+	}
+
 	function generateRandomString($length = 10) {
 	    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 	    $charactersLength = strlen($characters);

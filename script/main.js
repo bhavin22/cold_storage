@@ -16,13 +16,21 @@ $(document).ready(function() {
 		}
 		$('.userId').val(selectedId);
 	});
+
+	$('#editUserList').on('change', function(evt) {
+		window.location.href = '/editUserData.php?id=' + evt.currentTarget.value;
+	});
+
+	$('#cancelEditing').on('click', function(evt) {
+		window.location.href = '/adminDashboard.php';
+	});
 });
 
 
 $('#video').on('click',function(){
 	$('html, body').animate({
         scrollTop: $(".watch-video").offset().top -200
-    }, 500);
+    }, 2000);
 })
 
 function validateUserData() {
@@ -58,6 +66,47 @@ function validateUserData() {
 		return false;
 	} else if(!$(repassword).val() || $(repassword).val() !== $(password).val()) {
 		$('#error_msg').html("Both password should be same");
+		return false;
+	} else if(!$.trim($(address1).val())) {
+		$('#error_msg').html("Please enter address 1");
+		return false;
+	} else if(!$.trim($(address2).val())) {
+		$('#error_msg').html("Please enter address 2");
+		return false;
+	} else if(!$.trim($(city).val())) {
+		$('#error_msg').html("Please enter city");
+		return false;
+	} else if(!$.trim($(country).val())) {
+		$('#error_msg').html("Please enter country");
+		return false;
+	} else if(!$.trim($(zip_code).val())) {
+		$('#error_msg').html("Please enter zip_code");
+		return false;
+	} else if(!$(phone_number).val() || !phoneRegEx.test($(phone_number).val())) {
+		$('#error_msg').html("Please enter valid phone number");
+		return false;
+	} else {
+		return true;
+	}
+}
+
+function validateEditUserData() {
+	var company_name = $('#company_name');
+	var ip = $('#ip');
+	var address1 = $('#address1');
+	var address2 = $('#address2');
+	var city = $('#city');
+	var country = $('#country');
+	var zip_code = $('#zip_code');
+	var phone_number = $('#phone_number');
+
+	var error_message = "";
+
+	if(!$.trim($(company_name).val())) {
+		$('#error_msg').html("Please enter company name");
+		return false;
+	} else if(!$(ip).val() || !ipRegEx.test($(ip).val())) {
+		$('#error_msg').html("Please enter valid ip adresss");
 		return false;
 	} else if(!$.trim($(address1).val())) {
 		$('#error_msg').html("Please enter address 1");
