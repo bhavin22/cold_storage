@@ -2,6 +2,7 @@
 require_once 'config.php';
 require_once 'session.php';
 require_once 'user.php';
+require_once 'siteContent.php';
 
 if(!isset($_SESSION['bUserLoggedIn']) ||
 	$_SESSION['bUserLoggedIn'] !== true ||
@@ -10,66 +11,85 @@ if(!isset($_SESSION['bUserLoggedIn']) ||
 	exit();
 }
 
-$error_msg = "";
+$add_error_msg = "";
+$project_error_msg = "";
+$delete_error_msg = "";
 $arrUser = array();
 if(isset($_POST)) {
 	if(isset($_POST['submit'])) {
 		if(!isset($_POST['company_name']) ||
 			empty($_POST['company_name'])) {
-			$error_msg = "Please enter company name";
+			$add_error_msg = "Please enter company name";
 		} else if(!isset($_POST['user_name']) ||
 			empty($_POST['user_name'])) {
-			$error_msg = "Please enter user name";
+			$add_error_msg = "Please enter user name";
 		} else if (!isset($_POST['email']) ||
 			empty($_POST['email'])) {
-			$error_msg = "Please enter valid email address";
+			$add_error_msg = "Please enter valid email address";
 		} else if (!isset($_POST['ip']) ||
 			empty($_POST['ip'])) {
-			$error_msg = "Please enter valid ip address";
+			$add_error_msg = "Please enter valid ip address";
 		} else if (!isset($_POST['password']) ||
 			empty($_POST['password'])) {
-			$error_msg = "Please enter valid password";
+			$add_error_msg = "Please enter valid password";
 		} else if ($_POST['repassword'] !== $_POST['password']) {
-			$error_msg = "Both password should be same";
+			$add_error_msg = "Both password should be same";
 		} else if(!isset($_POST['address1']) ||
 			empty($_POST['address1'])) {
-			$error_msg = "Please enter address1";
+			$add_error_msg = "Please enter address1";
 		} else if(!isset($_POST['address2']) ||
 			empty($_POST['address2'])) {
-			$error_msg = "Please enter address2";
+			$add_error_msg = "Please enter address2";
 		} else if(!isset($_POST['city']) ||
 			empty($_POST['city'])) {
-			$error_msg = "Please enter city";
+			$add_error_msg = "Please enter city";
 		} else if(!isset($_POST['country']) ||
 			empty($_POST['country'])) {
-			$error_msg = "Please enter country";
+			$add_error_msg = "Please enter country";
 		} else if(!isset($_POST['zip_code']) ||
 			empty($_POST['zip_code'])) {
-			$error_msg = "Please enter zip code";
+			$add_error_msg = "Please enter zip code";
 		} else if(!isset($_POST['phone_number']) ||
 			empty($_POST['phone_number'])) {
-			$error_msg = "Please enter phone number";
+			$add_error_msg = "Please enter phone number";
 		} else {
 			$obj = new user();
 			$response = $obj->createUser($dbConn, $_POST['company_name'], $_POST['user_name'], $_POST['email'], $_POST['ip'], $_POST['password'], $_POST['address1'], $_POST['address2'], $_POST['city'], $_POST['country'], $_POST['zip_code'], $_POST['phone_number']);
 			if($response->bUserExist) {
-				$error_msg = "User_name already exist";
+				$add_error_msg = "User_name already exist";
 			} else {
-				$arrUser = $response->arrUser;
 				unset($_POST);
 			}
 		}
 	} else if(isset($_POST['delete'])) {
-		$obj = new user();
-		$arrUser = $obj->deleteUsers($dbConn, $_POST['userId']);
-	} else {
-		$obj = new user();
-		$arrUser = $obj->getUsers($dbConn);
+		if(!isset($_POST['selectedUsers']) || 
+			empty($_POST['selectedUsers']) || $_POST['selectedUsers'] === '') {
+			$delete_error_msg = "Please select users to delete";
+		} else {
+			$obj = new user();
+			$arrUser = $obj->deleteUsers($dbConn, $_POST['selectedUsers']);
+			unset($_POST);
+		}
+	} else if(isset($_POST['submit_project'])) {
+		if(!isset($_POST['project_title']) ||
+			empty($_POST['project_title'])) {
+			$project_error_msg = "Please enter project title";
+		} else if(!isset($_POST['project_description']) ||
+			empty($_POST['project_description'])) {
+			$project_error_msg = "Please enter project description";
+		} else if(!isset($_FILES['project_image']['name']) ||
+			empty($_FILES['project_image']['name'])) {
+			$project_error_msg = "Please select image";
+		} else {
+			$obj = new siteContent();
+			$obj->addProject($dbConn, $_POST['project_title'], $_POST['project_description'], $_FILES['project_image']);
+			unset($_POST);
+		}
 	}
-} else {
-	$obj = new user();
-	$arrUser = $obj->getUsers($dbConn);
-}
+} 
+
+$obj = new user();
+$arrUser = $obj->getUsers($dbConn);
 ?>
 <!DOCTYPE html>
 <html>
@@ -101,12 +121,13 @@ if(isset($_POST)) {
 
 			<div class="tab-content">
 			  	<div id="addUser" class="tab-pane fade in active">
+			  	<br>
 			    	<form method="post" action="#">
 			  			<div class="row">
 							<div class="col-sm-3">
 							</div>
-							<div class="col-sm-6">
-								<label id="error_msg" class="text-danger"><?=$error_msg?></label>
+							<div class="col-sm-6 text-center">
+								<label id="add_error_msg" class="text-danger"><?=$add_error_msg?></label>
 							</div>		
 						</div>
 						<br>
@@ -182,6 +203,14 @@ if(isset($_POST)) {
 			  	</div>
 			  	<div id="deleteUser" class="tab-pane fade in active">
 			  	<br>
+			  		<div class="row">
+						<div class="col-sm-3">
+						</div>
+						<div class="col-sm-6 text-center">
+							<label id="delete_error_msg" class="text-danger"><?=$delete_error_msg?></label>
+						</div>		
+					</div>
+					<br>
 				    <table class="table">
 			      		<thead>
 			      			<tr>
@@ -211,11 +240,11 @@ if(isset($_POST)) {
 			        </table>
 			        
 	        		<form method="post">
-	        			<input type="hidden" name="userId" class="userId" value=""></input>
+	        			<input type="hidden" name="selectedUsers" id="selectedUsers" value=""></input>
 	        			<div class="row">
 				        	<div class="col-xs-3"></div>
 				        	<div class="col-xs-6">
-				        		<input type="submit" id="delete" class='btn btn-success btn-block' name="delete" value="Delete User"></input>
+				        		<input type="submit" id="delete" class='btn btn-success btn-block' name="delete" value="Delete User" onclick="return validateDeleteUserData();"></input>
 				        	</div>
 				        </div>
 	        		</form>
@@ -238,18 +267,19 @@ if(isset($_POST)) {
 		  			</div>
 			  	</div>
 			  	<div id="addProject" class="tab-pane fade in active">
-			  		<form method="post" action="#">
+			  	<br>
+			  		<form method="post" action="#" enctype="multipart/form-data">
 			  			<div class="row">
 							<div class="col-sm-3">
 							</div>
-							<div class="col-sm-6">
-								<label id="error_msg" class="text-danger"><?=$error_msg?></label>
+							<div class="col-sm-6 text-center">
+								<label id="project_error_msg" class="text-danger"><?=$project_error_msg?></label>
 							</div>		
 						</div>
 						<br>
 						<div class="row">
 							<div class="col-sm-6 bottom-padding">
-								<input type="text" id="project_title" name="title" class="form-control" placeholder="Project Title"
+								<input type="text" id="project_title" name="project_title" class="form-control" placeholder="Project Title"
 								value="<?php if(isset($_POST['project_title'])) echo $_POST['project_title'];?>"></input>
 							</div>
 							<div class="col-sm-6 bottom-padding">
@@ -264,7 +294,7 @@ if(isset($_POST)) {
 							<div class="col-sm-3">
 							</div>
 							<div class="col-sm-6 bottom-padding">
-								<input type="submit" id="submit_project" name="submit_project" value="Create Project" class="btn btn-success btn-block" onclick="return validateUserData();"></input>
+								<input type="submit" id="submit_project" name="submit_project" value="Create Project" class="btn btn-success btn-block" onclick="return validateProjectData();"></input>
 							</div>		
 						</div>
 					</form>

@@ -11,15 +11,14 @@ class siteContent {
 		$stmt = $dbConn->prepare($query);
 		$result = $stmt->execute();
 		$stmt->store_result();
-		$stmt->bind_result($id, $author, $company, $designation, $testimonial);
+		$stmt->bind_result($id, $author, $company, $designation, $testimonialText);
 		while ($row = $stmt->fetch()) {
 			$testimonial = new stdClass();
 			$testimonial->id = $id;
-			$testimonial->company = $company;
 			$testimonial->author = $author;
 			$testimonial->company = $company;
 			$testimonial->designation = $designation;
-			$testimonial->testimonial = $testimonial;
+			$testimonial->testimonial = $testimonialText;
 			$arrTestimonial[] = $testimonial;
 	    }
 	    $stmt->free_result();
@@ -37,9 +36,9 @@ class siteContent {
 		while ($row = $stmt->fetch()) {
 			$project = new stdClass();
 			$project->id = $id;
-			$project->company = $company;
-			$project->author = $author;
-			$project->company = $company;
+			$project->title = $title;
+			$project->description = $description;
+			$project->image = $image;
 			$arrProject[] = $project;
 	    }
 	    $stmt->free_result();
@@ -51,6 +50,20 @@ class siteContent {
 		$query = "INSERT INTO testimonials(author, company, designation, testimonial) values(?, ?, ?, ?)";
 		$stmt = $dbConn->prepare($query);
 		$stmt->bind_param("ssss", $author, $company, $designation, $testimonial);
+		$stmt->execute();	
+		$stmt->close();
+	}
+
+	public function addProject($dbConn, $title, $description, $imageFile) {
+		$projectImageDir = "./images/projects";
+		$tmp_name = $imageFile["tmp_name"];
+        $name =$imageFile["name"];
+        $imagePath = "$projectImageDir/$name";
+        move_uploaded_file($tmp_name, $imagePath);
+
+		$query = "INSERT INTO projects(title, description, image) values(?, ?, ?)";
+		$stmt = $dbConn->prepare($query);
+		$stmt->bind_param("sss", $title, $description, $imagePath);
 		$stmt->execute();	
 		$stmt->close();
 	}

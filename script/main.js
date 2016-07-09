@@ -14,7 +14,7 @@ $(document).ready(function() {
 		} else {
 			selectedId.splice(selectedId.indexOf(evt.currentTarget.value), 1);
 		}
-		$('.userId').val(selectedId);
+		$('#selectedUsers').val(selectedId);
 	});
 
 	$('#editUserList').on('change', function(evt) {
@@ -50,40 +50,40 @@ function validateUserData() {
 	var error_message = "";
 
 	if(!$.trim($(company_name).val())) {
-		$('#error_msg').html("Please enter company name");
+		$('#add_error_msg').html("Please enter company name");
 		return false;
 	} else if(!$.trim($(user_name).val())) {
-		$('#error_msg').html("Please enter user name");
+		$('#add_error_msg').html("Please enter user name");
 		return false;
 	} else if(!$(email).val() || !emailRegEx.test($(email).val())) {
-		$('#error_msg').html("Please enter valid email adresss");
+		$('#add_error_msg').html("Please enter valid email adresss");
 		return false;
 	} else if(!$(ip).val() || !ipRegEx.test($(ip).val())) {
-		$('#error_msg').html("Please enter valid ip adresss");
+		$('#add_error_msg').html("Please enter valid ip adresss");
 		return false;
 	} else if(!$(password).val() || !passwordRegEx.test($(password).val())) {
-		$('#error_msg').html("Please enter valid password");
+		$('#add_error_msg').html("Please enter valid password");
 		return false;
 	} else if(!$(repassword).val() || $(repassword).val() !== $(password).val()) {
-		$('#error_msg').html("Both password should be same");
+		$('#add_error_msg').html("Both password should be same");
 		return false;
 	} else if(!$.trim($(address1).val())) {
-		$('#error_msg').html("Please enter address 1");
+		$('#add_error_msg').html("Please enter address 1");
 		return false;
 	} else if(!$.trim($(address2).val())) {
-		$('#error_msg').html("Please enter address 2");
+		$('#add_error_msg').html("Please enter address 2");
 		return false;
 	} else if(!$.trim($(city).val())) {
-		$('#error_msg').html("Please enter city");
+		$('#add_error_msg').html("Please enter city");
 		return false;
 	} else if(!$.trim($(country).val())) {
-		$('#error_msg').html("Please enter country");
+		$('#add_error_msg').html("Please enter country");
 		return false;
 	} else if(!$.trim($(zip_code).val())) {
-		$('#error_msg').html("Please enter zip_code");
+		$('#add_error_msg').html("Please enter zip_code");
 		return false;
 	} else if(!$(phone_number).val() || !phoneRegEx.test($(phone_number).val())) {
-		$('#error_msg').html("Please enter valid phone number");
+		$('#add_error_msg').html("Please enter valid phone number");
 		return false;
 	} else {
 		return true;
@@ -125,6 +125,62 @@ function validateEditUserData() {
 		return false;
 	} else if(!$(phone_number).val() || !phoneRegEx.test($(phone_number).val())) {
 		$('#error_msg').html("Please enter valid phone number");
+		return false;
+	} else {
+		return true;
+	}
+}
+
+function validateDeleteUserData() {
+	var selectedUsers = $('#selectedUsers');
+	if(!$.trim($(selectedUsers).val())) {
+		$('#delete_error_msg').html("Please select users to delete");
+		return false;
+	} else {
+		return true;
+	}
+}
+
+function validateTestimonialData() {
+	var author = $('#author');
+	var company = $('#company');
+	var designation = $('#designation');
+	var testimonial = $('#testimonial');
+	
+	var error_message = "";
+
+	if(!$.trim($(author).val())) {
+		$('#error_msg').html("Please enter customer name");
+		return false;
+	} else if(!$.trim($(company).val())) {
+		$('#error_msg').html("Please enter company name");
+		return false;
+	} else if(!$.trim($(designation).val())) {
+		$('#error_msg').html("Please enter designation");
+		return false;
+	} else if(!$.trim($(testimonial).val())) {
+		$('#error_msg').html("Please enter testimonial");
+		return false;
+	} else {
+		return true;
+	}
+}
+
+function validateProjectData() {
+	var project_title = $('#project_title');
+	var project_description = $('#project_description');
+	var project_image = $('#project_image');
+	
+	var error_message = "";
+
+	if(!$.trim($(project_title).val())) {
+		$('#project_error_msg').html("Please enter project title");
+		return false;
+	} else if(!$.trim($(project_description).val())) {
+		$('#project_error_msg').html("Please enter project description");
+		return false;
+	} else if(!$(project_image).val()) {
+		$('#project_error_msg').html("Please select image");
 		return false;
 	} else {
 		return true;

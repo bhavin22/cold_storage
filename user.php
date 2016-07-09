@@ -29,7 +29,6 @@ class user {
 	public function createUser($dbConn, $company_name, $user_name, $email, $ip, $password, $address1, $address2, $city, $country, $zip_code, $phone_number) {
 		$response = new stdClass();
 		$response->bUserExist = false;
-		$response->arrUser = array();
 
 		$query = "SELECT * FROM users WHERE user_name = ? OR email = ?";
 		$stmt = $dbConn->prepare($query);
@@ -48,31 +47,12 @@ class user {
 	    	return $response;
 	    }
 
-
 		$query = "INSERT INTO users(company_name, user_name, email, user_ip, password, user_type, address1, address2, city, country, zip_code, phone_number) values(?,?,?,?,?,1,?,?,?,?,?,?)";
 		$stmt = $dbConn->prepare($query);
 		$stmt->bind_param("sssssssssss", $company_name, $user_name, $email, $ip, $password, $address1, $address2, $city, $country, $zip_code, $phone_number);
 		$stmt->execute();	
 		$stmt->close();
 
-		$query = "SELECT id, company_name, user_name, email, user_ip, phone_number FROM users WHERE user_type = 1";
-		$stmt = $dbConn->prepare($query);
-		$result = $stmt->execute();
-		$stmt->store_result();
-		$stmt->bind_result($id, $company_name, $user_name, $email, $user_ip, $phone_number);
-
-		while ($row = $stmt->fetch()) {
-			$user = new stdClass();
-			$user->id = $id;
-			$user->company_name = $company_name;
-			$user->user_name = $user_name;
-			$user->email = $email;
-			$user->user_ip = $user_ip;
-			$user->phone_number = $phone_number;
-			$response->arrUser[] = $user;
-	    }
-	    $stmt->free_result();
-	    $stmt->close();
 	    return $response;
 	}
 
@@ -156,7 +136,6 @@ class user {
 	}
 
 	public function deleteUsers($dbConn, $userId) {
-		$arrUser = array();
 		$arrId = explode(',', $userId);
 		$query = "DELETE FROM users WHERE id IN (";
 		for($i=0; $i<count($arrId); $i++) {
@@ -165,27 +144,7 @@ class user {
 		$query = rtrim($query, ',');
 		$query .= ");";
 		$stmt = $dbConn->prepare($query);
-		$result = $stmt->execute();
-		
-		$query = "SELECT id, company_name, user_name, email, user_ip, phone_number FROM users WHERE user_type = 1";
-		$stmt = $dbConn->prepare($query);
-		$result = $stmt->execute();
-		$stmt->store_result();
-		$stmt->bind_result($id, $company_name, $user_name, $email, $user_ip, $phone_number);
-
-		while ($row = $stmt->fetch()) {
-			$user = new stdClass();
-			$user->id = $id;
-			$user->company_name = $company_name;
-			$user->user_name = $user_name;
-			$user->email = $email;
-			$user->user_ip = $user_ip;
-			$user->phone_number = $phone_number;
-			$arrUser[] = $user;
-	    }
-	    $stmt->free_result();
-	    $stmt->close();
-	    return $arrUser;
+		$stmt->execute();
 	}
 
 	public function getUserData($dbConn, $id) {
