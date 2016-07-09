@@ -107,7 +107,7 @@
 	<section id="fh5co-home" data-section="home" style="background-image: url(images/full_image_2.jpg);" data-stellar-background-ratio="0.5">
 		<div class="gradient"></div>
 		<div class="container">
-			<div class="text-wrap">
+			<!-- <div class="text-wrap">
 				<div class="text-inner">
 					<div class="row">
 						<div class="col-md-8 col-md-offset-2">
@@ -116,6 +116,54 @@
 						</div>
 					</div>
 				</div>
+			</div> -->
+			<div id="myCarousel" class="carousel slide slider_home" data-ride="carousel">
+			  <!-- Indicators -->
+			  <ol class="carousel-indicators">
+			    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+			    <li data-target="#myCarousel" data-slide-to="1"></li>
+			    <li data-target="#myCarousel" data-slide-to="2"></li>
+			    <li data-target="#myCarousel" data-slide-to="3"></li>
+			    <li data-target="#myCarousel" data-slide-to="4"></li>
+			  </ol>
+
+			  <!-- Wrapper for slides -->
+			  <div class="carousel-inner" role="listbox">
+			    <div class="item active slider_item">
+			      <div class="slider_text">We can automize almost all the plants.</div>
+			      <img class="slider_image" src="./images/slider_home/1.jpg" alt="Chania">
+			    </div>
+
+			    <div class="item slider_item">
+			    	<div class="slider_text">Provide Engineer services since Decade.</div>
+			      <img class="slider_image" src="./images/slider_home/2.jpg" alt="Chania">
+			    </div>
+
+			    <div class="item slider_item">
+			    	<div class="slider_text">More then 100 of satisfied clients.</div>
+			      <img class="slider_image" src="./images/slider_home/3.jpg" alt="Flower">
+			    </div>
+
+			    <div class="item slider_item">
+			    	<div class="slider_text fh5co-text">Convert your manual operation into automatic.</div>
+			      <img class="slider_image" src="./images/slider_home/4.jpg" alt="Flower">
+			    </div>
+
+			    <div class="item slider_item">
+			    	<div class="slider_text fh5co-text">Rise power of Industrial Control Engineering.</div>
+			      <img class="slider_image" src="./images/slider_home/5.jpg" alt="Flower">
+			    </div>
+			  </div>
+
+			  <!-- Left and right controls -->
+			  <a class="left carousel-control slider_home_buttons" href="#myCarousel" role="button" data-slide="prev">
+			    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+			    <span class="sr-only">Previous</span>
+			  </a>
+			  <a class="right carousel-control slider_home_buttons" href="#myCarousel" role="button" data-slide="next">
+			    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+			    <span class="sr-only">Next</span>
+			  </a>
 			</div>
 		</div>
 		<div class="slant"></div>
@@ -165,7 +213,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 section-heading text-center">
-					<h2 class="to-animate">Work</h2>
+					<h2 class="to-animate">Projects</h2>
 					<div class="row">
 						<div class="col-md-8 col-md-offset-2 subtext to-animate">
 							<h3>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</h3>
