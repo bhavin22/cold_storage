@@ -274,12 +274,12 @@
 			<div class="row">
 				<div class="col-md-6 col-sm-6 fh5co-service to-animate">
 					<i class="icon to-animate-2 icon-anchor"></i>
-					<h3>Brand &amp; Strategy</h3>
+					<h3>Cold Storage</h3>
 					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean</p>
 				</div>
 				<div class="col-md-6 col-sm-6 fh5co-service to-animate">
 					<i class="icon to-animate-2 icon-layers2"></i>
-					<h3>Web &amp; Interface</h3>
+					<h3>Tiles industries</h3>
 					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean</p>
 				</div>
 
@@ -287,12 +287,12 @@
 
 				<div class="col-md-6 col-sm-6 fh5co-service to-animate">
 					<i class="icon to-animate-2 icon-video2"></i>
-					<h3>Photo &amp; Video</h3>
+					<h3>Maintenance</h3>
 					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean</p>
 				</div>
 				<div class="col-md-6 col-sm-6 fh5co-service to-animate">
 					<i class="icon to-animate-2 icon-monitor"></i>
-					<h3>CMS &amp; eCommerce</h3>
+					<h3>Support to existing plants</h3>
 					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean</p>
 				</div>
 				
@@ -316,8 +316,8 @@
 				<div class="col-md-4">
 					<div class="fh5co-person text-center to-animate">
 						<figure><img src="images/person1.jpg" alt="Image"></figure>
-						<h3>Jean Smith</h3>
-						<span class="fh5co-position">Web Designer</span>
+						<h3>Vishnu Patel</h3>
+						<span class="fh5co-position">CEO</span>
 						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts</p>
 						<ul class="social social-circle">
 							<li><a href="#"><i class="icon-twitter"></i></a></li>
@@ -329,8 +329,8 @@
 				<div class="col-md-4">
 					<div class="fh5co-person text-center to-animate">
 						<figure><img src="images/person2.jpg" alt="Image"></figure>
-						<h3>Rob Smith</h3>
-						<span class="fh5co-position">Web Developer</span>
+						<h3>Nirav Patel</h3>
+						<span class="fh5co-position">CTO</span>
 						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts</p>
 						<ul class="social social-circle">
 							<li><a href="#"><i class="icon-twitter"></i></a></li>
@@ -342,8 +342,8 @@
 				<div class="col-md-4">
 					<div class="fh5co-person text-center to-animate">
 						<figure><img src="images/person3.jpg" alt="Image"></figure>
-						<h3>Larry Ben</h3>
-						<span class="fh5co-position">Web Designer</span>
+						<h3>Yogesh Patel</h3>
+						<span class="fh5co-position">CFO</span>
 						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts</p>
 						<ul class="social social-circle">
 							<li><a href="#"><i class="icon-twitter"></i></a></li>
