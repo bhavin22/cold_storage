@@ -96,6 +96,7 @@ if(isset($_POST)) {
 			  	<li class="active"><a data-toggle="tab" href="#addUser">Add User</a></li>
 			  	<li><a data-toggle="tab" href="#deleteUser">Delete User</a></li>
 			  	<li><a data-toggle="tab" href="#editUser">Edit User</a></li>
+			  	<li><a data-toggle="tab" href="#addProject">Add Project</a></li>
 			</ul>
 
 			<div class="tab-content">
@@ -220,7 +221,7 @@ if(isset($_POST)) {
 	        		</form>
 			  	</div>
 			  	<div id="editUser" class="tab-pane fade in active">
-			  	<br>
+			  		<br>
 		  			<div class="row">
 		  				<div class="col-xs-3"></div>
 		  				<div class="col-xs-6">
@@ -235,6 +236,38 @@ if(isset($_POST)) {
 					  		</select>
 		  				</div>
 		  			</div>
+			  	</div>
+			  	<div id="addProject" class="tab-pane fade in active">
+			  		<form method="post" action="#">
+			  			<div class="row">
+							<div class="col-sm-3">
+							</div>
+							<div class="col-sm-6">
+								<label id="error_msg" class="text-danger"><?=$error_msg?></label>
+							</div>		
+						</div>
+						<br>
+						<div class="row">
+							<div class="col-sm-6 bottom-padding">
+								<input type="text" id="project_title" name="title" class="form-control" placeholder="Project Title"
+								value="<?php if(isset($_POST['project_title'])) echo $_POST['project_title'];?>"></input>
+							</div>
+							<div class="col-sm-6 bottom-padding">
+								<input type="text" id="project_description" name="project_description" class="form-control" placeholder="Project Description"
+								value="<?php if(isset($_POST['project_description'])) echo $_POST['project_description'];?>"></input>
+							</div>
+							<div class="col-sm-6 bottom-padding">
+								<input type="file" id="project_image" name="project_image" accept="image/*">
+							</div>		
+						</div>
+						<div class="row">
+							<div class="col-sm-3">
+							</div>
+							<div class="col-sm-6 bottom-padding">
+								<input type="submit" id="submit" name="submit" value="Create User" class="btn btn-success btn-block" onclick="return validateUserData();"></input>
+							</div>		
+						</div>
+					</form>
 			  	</div>
 			</div>
 		</div>
