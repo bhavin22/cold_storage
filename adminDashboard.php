@@ -264,7 +264,7 @@ if(isset($_POST)) {
 							<div class="col-sm-3">
 							</div>
 							<div class="col-sm-6 bottom-padding">
-								<input type="submit" id="submit" name="submit" value="Create User" class="btn btn-success btn-block" onclick="return validateUserData();"></input>
+								<input type="submit" id="submit_project" name="submit_project" value="Create Project" class="btn btn-success btn-block" onclick="return validateUserData();"></input>
 							</div>		
 						</div>
 					</form>
