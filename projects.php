@@ -58,7 +58,8 @@
 		<script src="js/jquery.stellar.min.js"></script>
 		<!-- Counter -->
 		<script src="js/jquery.countTo.js"></script>
-		<!-- Magnific Popup -->
+		<!-- Main JS (Do not remove) -->
+		<script src="js/main.js"></script>
 		<script src="js/jquery.magnific-popup.min.js"></script>
 		<script src="script/projects.js"></script>
 		<script src="js/magnific-popup-options.js"></script>
