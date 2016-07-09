@@ -53,6 +53,9 @@
      zoom:1; /* hasLayout ie7 trigger */
 }
 
+textarea {
+    resize: none;
+}
 .nav-tabs, .nav-pills {
     text-align:center;
 }
