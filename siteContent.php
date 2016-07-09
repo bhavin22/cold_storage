@@ -11,7 +11,7 @@ class siteContent {
 		$stmt = $dbConn->prepare($query);
 		$result = $stmt->execute();
 		$stmt->store_result();
-		$stmt->bind_result($id, $author, $company, $designation, $testimonial);
+		$stmt->bind_result($id, $author, $company, $designation, $testimonialText);
 		while ($row = $stmt->fetch()) {
 			$testimonial = new stdClass();
 			$testimonial->id = $id;
@@ -19,7 +19,7 @@ class siteContent {
 			$testimonial->author = $author;
 			$testimonial->company = $company;
 			$testimonial->designation = $designation;
-			$testimonial->testimonial = $testimonial;
+			$testimonial->testimonial = $testimonialText;
 			$arrTestimonial[] = $testimonial;
 	    }
 	    $stmt->free_result();
@@ -37,9 +37,9 @@ class siteContent {
 		while ($row = $stmt->fetch()) {
 			$project = new stdClass();
 			$project->id = $id;
-			$project->company = $company;
-			$project->author = $author;
-			$project->company = $company;
+			$project->title = $title;
+			$project->description = $description;
+			$project->image = $image;
 			$arrProject[] = $project;
 	    }
 	    $stmt->free_result();

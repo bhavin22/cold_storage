@@ -1,4 +1,10 @@
+<?php
+	require_once 'config.php';
+	require_once 'siteContent.php';
 
+	$siteContent = new siteContent();
+	$projects = $siteContent->getProjects($dbConn);
+?>
 <!DOCTYPE html>
 <html class="no-js">
 	<head>
@@ -38,6 +44,20 @@
 					</div>
 				</div>
 				<div class="row row-bottom-padded-sm project_container">
+					<?php 
+						$len = count($projects);
+						for($i = 0;$i < $len; $i++){
+							echo '<div class="col-md-4 col-sm-6 col-xxs-12">
+						<a href="' . $projects[$i]->image . '" class="fh5co-project-item image-popup to-animate">
+							<img src="' . $projects[$i]->image . '" alt="Image" class="project_image img-responsive">
+							<div class="fh5co-text">
+							<h2>' . $projects[$i]->title . '</h2>
+							<span>' . $projects[$i]->description . '</span>
+							</div>
+						</a>
+					</div>';
+						}
+					?>
 				</div>
 				<div class="row no-projects-to-show text-center hide">
 					<div class="col-md-8 col-md-offset-2 subtext to-animate">
@@ -61,7 +81,6 @@
 		<!-- Main JS (Do not remove) -->
 		<script src="js/main.js"></script>
 		<script src="js/jquery.magnific-popup.min.js"></script>
-		<script src="script/projects.js"></script>
 		<script src="js/magnific-popup-options.js"></script>
 	</body>
 </html>

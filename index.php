@@ -1,4 +1,11 @@
+<?php 
+	require_once 'config.php';
+	require_once 'siteContent.php';
 
+	$siteContent = new siteContent();
+	$testimonials = $siteContent->getTestimonials($dbConn);
+	$projects = $siteContent->getProjects($dbConn);
+?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -222,8 +229,23 @@
 				</div>
 			</div>
 			<div class="row row-bottom-padded-sm project_container">
+				<?php 
+					$len = count($projects) > 3 ? 3 : count($projects);
+					for($i = 0;$i < $len; $i++){
+						echo '<div class="col-md-4 col-sm-6 col-xxs-12">
+					<a href="' . $projects[$i]->image . '" class="fh5co-project-item image-popup to-animate">
+						<img src="' . $projects[$i]->image . '" alt="Image" class="project_image img-responsive">
+						<div class="fh5co-text">
+						<h2>' . $projects[$i]->title . '</h2>
+						<span>' . $projects[$i]->description . '</span>
+						</div>
+					</a>
+				</div>';
+					}
+					$class = count($projects) > 3 ? "" : "hide";
+				?>
 			</div>
-			<div class="row text-center more_link hide">
+			<div class="row text-center more_link <?= $class ?>">
 				<div class="col-md-8 col-md-offset-2 subtext to-animate">
 					<h3><a target="_blank" href="./projects.php">More...</a></h3>
 				</div>
@@ -245,6 +267,23 @@
 			</div>
 			<div class="row slider_parent">
 				<div class="test_slider_wrapper">
+					<?php 
+						$lenTest = count($testimonials);
+						for($i = 0;$i<$lenTest;$i++){
+							echo '<div class="test_slider_item">
+											<div class="box-testimony">
+												<blockquote class="to-animate-2">
+													<p>&ldquo;' . $testimonials[$i]->testimonial . '&rdquo;</p>
+												</blockquote>
+												<div class="author to-animate">
+													<figure><img src="images/person1.jpg" alt="Person"></figure>
+													<p>' . $testimonials[$i]->author . ', ' . $testimonials[$i]->designation . '<span class="subtext">'.$testimonials[$i]->company . '</span>
+													</p>
+												</div>
+											</div>
+										</div>';
+						}
+					?>
 				</div>
 				<a class="left carousel-control test_slider_buttons test_previous" role="button" data-slide="prev">
 			    	<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
