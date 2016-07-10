@@ -201,7 +201,7 @@ $arrUser = $obj->getUsers($dbConn);
 						</div>
 					</form>
 			  	</div>
-			  	<div id="deleteUser" class="tab-pane fade in active">
+			  	<div id="deleteUser" class="tab-pane fade">
 			  	<br>
 			  		<div class="row">
 						<div class="col-sm-3">
@@ -249,7 +249,7 @@ $arrUser = $obj->getUsers($dbConn);
 				        </div>
 	        		</form>
 			  	</div>
-			  	<div id="editUser" class="tab-pane fade in active">
+			  	<div id="editUser" class="tab-pane fade">
 			  		<br>
 		  			<div class="row">
 		  				<div class="col-xs-3"></div>
@@ -266,7 +266,7 @@ $arrUser = $obj->getUsers($dbConn);
 		  				</div>
 		  			</div>
 			  	</div>
-			  	<div id="addProject" class="tab-pane fade in active">
+			  	<div id="addProject" class="tab-pane fade">
 			  	<br>
 			  		<form method="post" action="#" enctype="multipart/form-data">
 			  			<div class="row">

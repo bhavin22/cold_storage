@@ -105,6 +105,7 @@ textarea {
     height: 100%;
     position: relative;
     margin:0 10px;
+    word-break:break-all;
 }
 
 .test_slider_wrapper{

@@ -252,8 +252,12 @@
 			</div>
 		</div>
 	</section>
-
-	<section id="fh5co-testimonials" data-section="testimonials">
+	<?php
+		$lenTest = count($testimonials);
+		$testClass = $lenTest == 0 ? 'hide' : ''; 
+		$linkClass = $lenTest <= 1 ? 'hide' : '';
+	?>
+	<section id="fh5co-testimonials" class='<?= $testClass ?>' data-section="testimonials">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 section-heading text-center">
@@ -285,11 +289,11 @@
 						}
 					?>
 				</div>
-				<a class="left carousel-control test_slider_buttons test_previous" role="button" data-slide="prev">
+				<a class="left carousel-control test_slider_buttons test_previous <?= $linkClass ?> " role="button" data-slide="prev">
 			    	<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
 			    	<span class="sr-only">Previous</span>
 				</a>
-				<a class="right carousel-control test_slider_buttons test_next" role="button" data-slide="next">
+				<a class="right carousel-control test_slider_buttons test_next <?= $linkClass ?>" role="button" data-slide="next">
 				    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
 				    <span class="sr-only">Next</span>
 				</a>
