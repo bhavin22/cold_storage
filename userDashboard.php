@@ -14,16 +14,16 @@ $error_msg = "";
 if(isset($_POST) && isset($_POST['submit'])) {	
 	if(!isset($_POST['author']) ||
 		empty($_POST['author'])) {
-		$error_msg = "Please enter customer name";
+		$error_msg = "Please enter customer name.";
 	} else if(!isset($_POST['company']) ||
 		empty($_POST['company'])) {
-		$error_msg = "Please enter company name";
+		$error_msg = "Please enter company name.";
 	} else if(!isset($_POST['designation']) ||
 		empty($_POST['designation'])) {
-		$error_msg = "Please enter designation";
+		$error_msg = "Please enter designation.";
 	} else if(!isset($_POST['testimonial']) ||
 		empty($_POST['testimonial'])) {
-		$error_msg = "Please enter testimonial";
+		$error_msg = "Please enter testimonial.";
 	} else {
 		$obj = new siteContent();
 		$obj->addTestimonial($dbConn, $_POST['author'], $_POST['company'], $_POST['designation'], $_POST['testimonial']);

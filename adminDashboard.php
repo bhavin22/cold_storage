@@ -12,51 +12,35 @@ if(!isset($_SESSION['bUserLoggedIn']) ||
 }
 
 $add_error_msg = "";
-$project_error_msg = "";
 $delete_error_msg = "";
 $arrUser = array();
 if(isset($_POST)) {
 	if(isset($_POST['submit'])) {
 		if(!isset($_POST['company_name']) ||
 			empty($_POST['company_name'])) {
-			$add_error_msg = "Please enter company name";
+			$add_error_msg = "Please enter company name.";
 		} else if(!isset($_POST['user_name']) ||
 			empty($_POST['user_name'])) {
-			$add_error_msg = "Please enter user name";
+			$add_error_msg = "Please enter user name.";
 		} else if (!isset($_POST['email']) ||
 			empty($_POST['email'])) {
-			$add_error_msg = "Please enter valid email address";
+			$add_error_msg = "Please enter valid email address.";
 		} else if (!isset($_POST['ip']) ||
 			empty($_POST['ip'])) {
-			$add_error_msg = "Please enter valid ip address";
+			$add_error_msg = "Please enter valid ip address.";
 		} else if (!isset($_POST['password']) ||
 			empty($_POST['password'])) {
-			$add_error_msg = "Please enter valid password";
+			$add_error_msg = "Please enter valid password.";
 		} else if ($_POST['repassword'] !== $_POST['password']) {
-			$add_error_msg = "Both password should be same";
-		} else if(!isset($_POST['address1']) ||
-			empty($_POST['address1'])) {
-			$add_error_msg = "Please enter address1";
-		} else if(!isset($_POST['address2']) ||
-			empty($_POST['address2'])) {
-			$add_error_msg = "Please enter address2";
-		} else if(!isset($_POST['city']) ||
-			empty($_POST['city'])) {
-			$add_error_msg = "Please enter city";
-		} else if(!isset($_POST['country']) ||
-			empty($_POST['country'])) {
-			$add_error_msg = "Please enter country";
-		} else if(!isset($_POST['zip_code']) ||
-			empty($_POST['zip_code'])) {
-			$add_error_msg = "Please enter zip code";
+			$add_error_msg = "Both password should be same.";
 		} else if(!isset($_POST['phone_number']) ||
 			empty($_POST['phone_number'])) {
-			$add_error_msg = "Please enter phone number";
+			$add_error_msg = "Please enter phone number.";
 		} else {
 			$obj = new user();
 			$response = $obj->createUser($dbConn, $_POST['company_name'], $_POST['user_name'], $_POST['email'], $_POST['ip'], $_POST['password'], $_POST['address1'], $_POST['address2'], $_POST['city'], $_POST['country'], $_POST['zip_code'], $_POST['phone_number']);
 			if($response->bUserExist) {
-				$add_error_msg = "User_name already exist";
+				$add_error_msg = "Email address or user name is already used with some other account.";
 			} else {
 				unset($_POST);
 			}
@@ -64,25 +48,10 @@ if(isset($_POST)) {
 	} else if(isset($_POST['delete'])) {
 		if(!isset($_POST['selectedUsers']) || 
 			empty($_POST['selectedUsers']) || $_POST['selectedUsers'] === '') {
-			$delete_error_msg = "Please select users to delete";
+			$delete_error_msg = "Please select users to delete.";
 		} else {
 			$obj = new user();
 			$arrUser = $obj->deleteUsers($dbConn, $_POST['selectedUsers']);
-			unset($_POST);
-		}
-	} else if(isset($_POST['submit_project'])) {
-		if(!isset($_POST['project_title']) ||
-			empty($_POST['project_title'])) {
-			$project_error_msg = "Please enter project title";
-		} else if(!isset($_POST['project_description']) ||
-			empty($_POST['project_description'])) {
-			$project_error_msg = "Please enter project description";
-		} else if(!isset($_FILES['project_image']['name']) ||
-			empty($_FILES['project_image']['name'])) {
-			$project_error_msg = "Please select image";
-		} else {
-			$obj = new siteContent();
-			$obj->addProject($dbConn, $_POST['project_title'], $_POST['project_description'], $_FILES['project_image']);
 			unset($_POST);
 		}
 	}
@@ -107,6 +76,7 @@ $arrUser = $obj->getUsers($dbConn);
 		<nav class="navbar navbar-default">
 		    <ul class="nav navbar-nav navbar-right">
 		    	<li><a href="index.php">Home</a></li>
+		    	<li><a href="manageSiteContent.php">Manage Site Content</a></li>
 		        <li><a href="logout.php" class="menu-link">Logout</a></li>
 		    </ul>
 		</nav>
@@ -116,7 +86,6 @@ $arrUser = $obj->getUsers($dbConn);
 			  	<li class="active"><a data-toggle="tab" href="#addUser">Add User</a></li>
 			  	<li><a data-toggle="tab" href="#deleteUser">Delete User</a></li>
 			  	<li><a data-toggle="tab" href="#editUser">Edit User</a></li>
-			  	<li><a data-toggle="tab" href="#addProject">Add Project</a></li>
 			</ul>
 
 			<div class="tab-content">
@@ -177,7 +146,7 @@ $arrUser = $obj->getUsers($dbConn);
 								value="<?php if(isset($_POST['zip_code'])) echo $_POST['zip_code'];?>"></input>
 							</div>
 							<div class="col-sm-6 bottom-padding">
-								<input type="text" id="phone_number" name="phone_number" class="form-control" placeholder="Phone Numver"
+								<input type="text" id="phone_number" name="phone_number" class="form-control" placeholder="Phone Number"
 								value="<?php if(isset($_POST['phone_number'])) echo $_POST['phone_number'];?>"></input>
 							</div>	
 						</div>
@@ -219,8 +188,6 @@ $arrUser = $obj->getUsers($dbConn);
 			      			<th>Company Name</th>
 			      			<th>IP</th>
 			      			<th>Phone Number</th>
-			      			<th></th>
-			      			<th></th>
 			      			</tr>
 			      		</thead>
 			      		<tbody>	      	
@@ -265,39 +232,6 @@ $arrUser = $obj->getUsers($dbConn);
 					  		</select>
 		  				</div>
 		  			</div>
-			  	</div>
-			  	<div id="addProject" class="tab-pane fade">
-			  	<br>
-			  		<form method="post" action="#" enctype="multipart/form-data">
-			  			<div class="row">
-							<div class="col-sm-3">
-							</div>
-							<div class="col-sm-6 text-center">
-								<label id="project_error_msg" class="text-danger"><?=$project_error_msg?></label>
-							</div>		
-						</div>
-						<br>
-						<div class="row">
-							<div class="col-sm-6 bottom-padding">
-								<input type="text" id="project_title" name="project_title" class="form-control" placeholder="Project Title"
-								value="<?php if(isset($_POST['project_title'])) echo $_POST['project_title'];?>"></input>
-							</div>
-							<div class="col-sm-6 bottom-padding">
-								<input type="text" id="project_description" name="project_description" class="form-control" placeholder="Project Description"
-								value="<?php if(isset($_POST['project_description'])) echo $_POST['project_description'];?>"></input>
-							</div>
-							<div class="col-sm-6 bottom-padding">
-								<input type="file" id="project_image" name="project_image" accept="image/*">
-							</div>		
-						</div>
-						<div class="row">
-							<div class="col-sm-3">
-							</div>
-							<div class="col-sm-6 bottom-padding">
-								<input type="submit" id="submit_project" name="submit_project" value="Create Project" class="btn btn-success btn-block" onclick="return validateProjectData();"></input>
-							</div>		
-						</div>
-					</form>
 			  	</div>
 			</div>
 		</div>

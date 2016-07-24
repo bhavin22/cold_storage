@@ -17,10 +17,10 @@ $error_msg = "";
 if(isset($_POST) && isset($_POST['submit'])) {
 	if(!isset($_POST['user_name']) ||
 		empty($_POST['user_name'])) {
-		$error_msg = "Please enter user name";
+		$error_msg = "Please enter user name.";
 	} else if (!isset($_POST['password']) ||
 		empty($_POST['password'])) {
-		$error_msg = "Please enter password";
+		$error_msg = "Please enter password.";
 	} else {
 		$obj = new user();
 		$userData = $obj->validateUser($dbConn, $_POST['user_name'], $_POST['password']);
@@ -35,7 +35,7 @@ if(isset($_POST) && isset($_POST['submit'])) {
 			}
 			exit();
 		} else {
-			$error_msg = "User_name or password is incorrect";
+			$error_msg = "User_name or password is incorrect.";
 		}
 	}
 }

@@ -15,28 +15,13 @@ $userData = array();
 if(isset($_POST) && isset($_POST['edit'])) {
 	if(!isset($_POST['company_name']) ||
 		empty($_POST['company_name'])) {
-		$error_msg = "Please enter company name";
+		$error_msg = "Please enter company name.";
 	} else if (!isset($_POST['ip']) ||
 		empty($_POST['ip'])) {
-		$error_msg = "Please enter valid ip address";
-	} else if(!isset($_POST['address1']) ||
-		empty($_POST['address1'])) {
-		$error_msg = "Please enter address1";
-	} else if(!isset($_POST['address2']) ||
-		empty($_POST['address2'])) {
-		$error_msg = "Please enter address2";
-	} else if(!isset($_POST['city']) ||
-		empty($_POST['city'])) {
-		$error_msg = "Please enter city";
-	} else if(!isset($_POST['country']) ||
-		empty($_POST['country'])) {
-		$error_msg = "Please enter country";
-	} else if(!isset($_POST['zip_code']) ||
-		empty($_POST['zip_code'])) {
-		$error_msg = "Please enter zip code";
+		$error_msg = "Please enter valid ip address.";
 	} else if(!isset($_POST['phone_number']) ||
 		empty($_POST['phone_number'])) {
-		$error_msg = "Please enter phone number";
+		$error_msg = "Please enter phone number.";
 	} else {
 		$obj = new user();
 		$response = $obj->editUser($dbConn, $_POST['id'], $_POST['company_name'], $_POST['ip'],  $_POST['address1'], $_POST['address2'], $_POST['city'], $_POST['country'], $_POST['zip_code'], $_POST['phone_number']);
@@ -121,7 +106,7 @@ if(isset($_POST) && isset($_POST['edit'])) {
 				value="<?php if(isset($userData->zip_code)) echo $userData->zip_code; else if(isset($_POST['zip_code'])) echo $_POST['zip_code'];?>"></input>
 			</div>
 			<div class="col-sm-6 bottom-padding">
-				<input type="text" id="phone_number" name="phone_number" class="form-control" placeholder="Phone Numver"
+				<input type="text" id="phone_number" name="phone_number" class="form-control" placeholder="Phone Number"
 				value="<?php if(isset($userData->phone_number)) echo $userData->phone_number; else if(isset($_POST['phone_number'])) echo $_POST['phone_number'];?>"></input>
 			</div>	
 		</div>

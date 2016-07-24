@@ -67,4 +67,28 @@ class siteContent {
 		$stmt->execute();	
 		$stmt->close();
 	}
+
+	public function deleteProjects($dbConn, $projectId) {
+		$arrId = explode(',', $projectId);
+		$query = "DELETE FROM projects WHERE id IN (";
+		for($i=0; $i<count($arrId); $i++) {
+			$query .= "'".$arrId[$i]."',";
+		}
+		$query = rtrim($query, ',');
+		$query .= ");";
+		$stmt = $dbConn->prepare($query);
+		$stmt->execute();
+	}
+
+	public function deleteTestimonial($dbConn, $testimonialId) {
+		$arrId = explode(',', $testimonialId);
+		$query = "DELETE FROM testimonials WHERE id IN (";
+		for($i=0; $i<count($arrId); $i++) {
+			$query .= "'".$arrId[$i]."',";
+		}
+		$query = rtrim($query, ',');
+		$query .= ");";
+		$stmt = $dbConn->prepare($query);
+		$stmt->execute();
+	}
 }

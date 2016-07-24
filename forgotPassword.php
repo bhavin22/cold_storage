@@ -18,7 +18,7 @@ $error_msg = "";
 if(isset($_POST) && isset($_POST['submit'])) {
 	if(!isset($_POST['email']) ||
 		empty($_POST['email'])) {
-		$error_msg = "Please enter valid email";
+		$error_msg = "Please enter valid email.";
 	} else {
 		$obj = new user();
 		$response = $obj->validateEmail($dbConn, $_POST['email']);
@@ -26,7 +26,7 @@ if(isset($_POST) && isset($_POST['submit'])) {
 			$obj = new email();
 			$error_msg = $obj->sendEmail($_POST['email'], $response->token);
 		} else {
-			$error_msg = "Email does not exist";
+			$error_msg = "Email does not exist.";
 		}
 	}
 }

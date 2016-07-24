@@ -2,7 +2,9 @@ var emailRegEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@
 var passwordRegEx = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,}$/;
 var ipRegEx = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
 var phoneRegEx = /^[789]\d{9}$/;
-var selectedId = [];
+var selectedUserId = [];
+var selectedProjectId = [];
+var selectedTestimonialId = [];
 $('#login').on('click', function(){
 	window.location = "/login.php";
 });
@@ -10,11 +12,29 @@ $('#login').on('click', function(){
 $(document).ready(function() {
 	$('.userCheckbox').on('change', function(evt) {
 		if(evt.currentTarget.checked) {
-			selectedId.push(evt.currentTarget.value);
+			selectedUserId.push(evt.currentTarget.value);
 		} else {
-			selectedId.splice(selectedId.indexOf(evt.currentTarget.value), 1);
+			selectedUserId.splice(selectedUserId.indexOf(evt.currentTarget.value), 1);
 		}
-		$('#selectedUsers').val(selectedId);
+		$('#selectedUsers').val(selectedUserId);
+	});
+
+	$('.projectCheckbox').on('change', function(evt) {
+		if(evt.currentTarget.checked) {
+			selectedProjectId.push(evt.currentTarget.value);
+		} else {
+			selectedProjectId.splice(selectedProjectId.indexOf(evt.currentTarget.value), 1);
+		}
+		$('#selectedProjects').val(selectedProjectId);
+	});
+
+	$('.testimonialCheckbox').on('change', function(evt) {
+		if(evt.currentTarget.checked) {
+			selectedTestimonialId.push(evt.currentTarget.value);
+		} else {
+			selectedTestimonialId.splice(selectedTestimonialId.indexOf(evt.currentTarget.value), 1);
+		}
+		$('#selectedTestimonials').val(selectedTestimonialId);
 	});
 
 	$('#editUserList').on('change', function(evt) {
@@ -40,50 +60,30 @@ function validateUserData() {
 	var ip = $('#ip');
 	var password = $('#password');
 	var repassword = $('#repassword');
-	var address1 = $('#address1');
-	var address2 = $('#address2');
-	var city = $('#city');
-	var country = $('#country');
-	var zip_code = $('#zip_code');
 	var phone_number = $('#phone_number');
 
 	var error_message = "";
 
 	if(!$.trim($(company_name).val())) {
-		$('#add_error_msg').html("Please enter company name");
+		$('#add_error_msg').html("Please enter company name.");
 		return false;
 	} else if(!$.trim($(user_name).val())) {
-		$('#add_error_msg').html("Please enter user name");
+		$('#add_error_msg').html("Please enter user name.");
 		return false;
 	} else if(!$(email).val() || !emailRegEx.test($(email).val())) {
-		$('#add_error_msg').html("Please enter valid email adresss");
+		$('#add_error_msg').html("Please enter valid email adresss.");
 		return false;
 	} else if(!$(ip).val() || !ipRegEx.test($(ip).val())) {
-		$('#add_error_msg').html("Please enter valid ip adresss");
+		$('#add_error_msg').html("Please enter valid ip adresss.");
 		return false;
 	} else if(!$(password).val() || !passwordRegEx.test($(password).val())) {
-		$('#add_error_msg').html("Please enter valid password");
+		$('#add_error_msg').html("Please enter valid password.");
 		return false;
 	} else if(!$(repassword).val() || $(repassword).val() !== $(password).val()) {
-		$('#add_error_msg').html("Both password should be same");
-		return false;
-	} else if(!$.trim($(address1).val())) {
-		$('#add_error_msg').html("Please enter address 1");
-		return false;
-	} else if(!$.trim($(address2).val())) {
-		$('#add_error_msg').html("Please enter address 2");
-		return false;
-	} else if(!$.trim($(city).val())) {
-		$('#add_error_msg').html("Please enter city");
-		return false;
-	} else if(!$.trim($(country).val())) {
-		$('#add_error_msg').html("Please enter country");
-		return false;
-	} else if(!$.trim($(zip_code).val())) {
-		$('#add_error_msg').html("Please enter zip_code");
+		$('#add_error_msg').html("Both password should be same.");
 		return false;
 	} else if(!$(phone_number).val() || !phoneRegEx.test($(phone_number).val())) {
-		$('#add_error_msg').html("Please enter valid phone number");
+		$('#add_error_msg').html("Please enter valid phone number.");
 		return false;
 	} else {
 		return true;
@@ -93,38 +93,18 @@ function validateUserData() {
 function validateEditUserData() {
 	var company_name = $('#company_name');
 	var ip = $('#ip');
-	var address1 = $('#address1');
-	var address2 = $('#address2');
-	var city = $('#city');
-	var country = $('#country');
-	var zip_code = $('#zip_code');
 	var phone_number = $('#phone_number');
 
 	var error_message = "";
 
 	if(!$.trim($(company_name).val())) {
-		$('#error_msg').html("Please enter company name");
+		$('#error_msg').html("Please enter company name.");
 		return false;
 	} else if(!$(ip).val() || !ipRegEx.test($(ip).val())) {
-		$('#error_msg').html("Please enter valid ip adresss");
-		return false;
-	} else if(!$.trim($(address1).val())) {
-		$('#error_msg').html("Please enter address 1");
-		return false;
-	} else if(!$.trim($(address2).val())) {
-		$('#error_msg').html("Please enter address 2");
-		return false;
-	} else if(!$.trim($(city).val())) {
-		$('#error_msg').html("Please enter city");
-		return false;
-	} else if(!$.trim($(country).val())) {
-		$('#error_msg').html("Please enter country");
-		return false;
-	} else if(!$.trim($(zip_code).val())) {
-		$('#error_msg').html("Please enter zip_code");
+		$('#error_msg').html("Please enter valid ip adresss.");
 		return false;
 	} else if(!$(phone_number).val() || !phoneRegEx.test($(phone_number).val())) {
-		$('#error_msg').html("Please enter valid phone number");
+		$('#error_msg').html("Please enter valid phone number.");
 		return false;
 	} else {
 		return true;
@@ -134,7 +114,27 @@ function validateEditUserData() {
 function validateDeleteUserData() {
 	var selectedUsers = $('#selectedUsers');
 	if(!$.trim($(selectedUsers).val())) {
-		$('#delete_error_msg').html("Please select users to delete");
+		$('#delete_error_msg').html("Please select users to delete.");
+		return false;
+	} else {
+		return true;
+	}
+}
+
+function validateDeleteProjectData() {
+	var selectedProjects = $('#selectedProjects');
+	if(!$.trim($(selectedProjects).val())) {
+		$('#delete_project_error_msg').html("Please select projects to delete.");
+		return false;
+	} else {
+		return true;
+	}
+}
+
+function validateDeleteTestimonialData() {
+	var selectedTestimonials = $('#selectedTestimonials');
+	if(!$.trim($(selectedTestimonials).val())) {
+		$('#delete_testimonial_error_msg').html("Please select testimonials to delete.");
 		return false;
 	} else {
 		return true;
@@ -150,16 +150,16 @@ function validateTestimonialData() {
 	var error_message = "";
 
 	if(!$.trim($(author).val())) {
-		$('#error_msg').html("Please enter customer name");
+		$('#error_msg').html("Please enter customer name.");
 		return false;
 	} else if(!$.trim($(company).val())) {
-		$('#error_msg').html("Please enter company name");
+		$('#error_msg').html("Please enter company name.");
 		return false;
 	} else if(!$.trim($(designation).val())) {
-		$('#error_msg').html("Please enter designation");
+		$('#error_msg').html("Please enter designation.");
 		return false;
 	} else if(!$.trim($(testimonial).val())) {
-		$('#error_msg').html("Please enter testimonial");
+		$('#error_msg').html("Please enter testimonial.");
 		return false;
 	} else {
 		return true;
@@ -174,13 +174,13 @@ function validateProjectData() {
 	var error_message = "";
 
 	if(!$.trim($(project_title).val())) {
-		$('#project_error_msg').html("Please enter project title");
+		$('#add_project_error_msg').html("Please enter project title.");
 		return false;
 	} else if(!$.trim($(project_description).val())) {
-		$('#project_error_msg').html("Please enter project description");
+		$('#add_project_error_msg').html("Please enter project description.");
 		return false;
 	} else if(!$(project_image).val()) {
-		$('#project_error_msg').html("Please select image");
+		$('#add_project_error_msg').html("Please select image.");
 		return false;
 	} else {
 		return true;
@@ -194,10 +194,10 @@ function validateLogin() {
 	var error_message = "";
 
 	if(!$.trim($(user_name).val())) {
-		$('#error_msg').html("Please enter user name");
+		$('#error_msg').html("Please enter user name.");
 		return false;
 	} else if(!$.trim($(password).val())) {
-		$('#error_msg').html("Please enter password");
+		$('#error_msg').html("Please enter password.");
 		return false;
 	} else {
 		return true;
@@ -210,7 +210,7 @@ function validateEmail() {
 	var error_message = "";
 
 	if(!$(email).val() || !emailRegEx.test($(email).val())) {
-		$('#error_msg').html("Please enter valid email adresss");
+		$('#error_msg').html("Please enter valid email adresss.");
 		return false;
 	} else {
 		return true;
@@ -224,10 +224,10 @@ function validatePasswords() {
 	var error_message = "";
 
 	if(!$(password).val() || !passwordRegEx.test($(password).val())) {
-		$('#error_msg').html("Please enter valid password");
+		$('#error_msg').html("Please enter valid password.");
 		return false;
 	} else if(!$(repassword).val() || $(repassword).val() !== $(password).val()) {
-		$('#error_msg').html("Both password should be same");
+		$('#error_msg').html("Both password should be same.");
 		return false;
 	} else {
 		return true;

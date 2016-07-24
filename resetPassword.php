@@ -18,11 +18,11 @@ if(isset($_POST) && isset($_POST['submit'])) {
 
 	if(!isset($_POST['password']) || 
 		empty($_POST['password'])) {
-		$error_msg = "Please enter valid password";
+		$error_msg = "Please enter valid password.";
 	} else if(!isset($_POST['repassword']) || 
 		empty($_POST['repassword']) || 
 		$_POST['repassword'] !== $_POST['password']) {
-		$error_msg = "Both password should be same";
+		$error_msg = "Both password should be same.";
 	} else {
 		$obj = new user();
 		$obj->resetPassword($dbConn, $_GET['email'], $_POST['password']);
