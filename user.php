@@ -183,6 +183,15 @@ class user {
 	    $stmt->close();
 	}
 
+	public function editUserProfile($dbConn, $id, $address1, $address2, $city, $country, $zip_code, $phone_number) {
+		$query = "UPDATE users SET address1 = ?, address2 = ?, city = ?, country = ?, zip_code = ?, phone_number = ? WHERE id = ?";
+		$stmt = $dbConn->prepare($query);
+		$stmt->bind_param("sssssss", $address1, $address2, $city, $country, $zip_code, $phone_number, $id);
+		
+		$stmt->execute();
+	    $stmt->close();
+	}
+
 	function generateRandomString($length = 10) {
 	    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 	    $charactersLength = strlen($characters);

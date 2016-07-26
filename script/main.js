@@ -111,6 +111,17 @@ function validateEditUserData() {
 	}
 }
 
+function validateEditProfileData() {
+	var phone_number = $('#phone_number');
+
+	if(!$(phone_number).val() || !phoneRegEx.test($(phone_number).val())) {
+		$('#edit_profile_error_msg').html("Please enter valid phone number.");
+		return false;
+	} else {
+		return true;
+	}
+}
+
 function validateDeleteUserData() {
 	var selectedUsers = $('#selectedUsers');
 	if(!$.trim($(selectedUsers).val())) {
