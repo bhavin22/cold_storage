@@ -69,10 +69,11 @@ textarea {
 
 .slider_home_buttons{
 	background-image: none !important;
+	color:black !important;
 }
 
 .slider_image{
-	width: 100%;
+	margin:auto;
 	height: 400px !important;
 	border-bottom-right-radius: 7px;
 	border-bottom-left-radius: 7px;
