@@ -73,7 +73,8 @@ $arrUser = $obj->getUsers($dbConn);
 </head>
 <body>
 	<div class="container">
-		<nav class="navbar navbar-default">
+		<nav class="navbar navbar-default custom-nav-bar">
+			<a class="navbar-brand logo" href="index.php"></a> 
 		    <ul class="nav navbar-nav navbar-right">
 		    	<li><a href="index.php">Home</a></li>
 		    	<li><a href="manageSiteContent.php">Manage Site Content</a></li>
@@ -165,7 +166,7 @@ $arrUser = $obj->getUsers($dbConn);
 							<div class="col-sm-3">
 							</div>
 							<div class="col-sm-6 bottom-padding">
-								<input type="submit" id="submit" name="submit" value="Create User" class="btn btn-success btn-block" onclick="return validateUserData();"></input>
+								<input type="submit" id="submit" name="submit" value="Create" class="btn btn-success btn-block" onclick="return validateUserData();"></input>
 							</div>		
 						</div>
 					</form>
@@ -211,7 +212,7 @@ $arrUser = $obj->getUsers($dbConn);
 	        			<div class="row">
 				        	<div class="col-xs-3"></div>
 				        	<div class="col-xs-6">
-				        		<input type="submit" id="delete" class='btn btn-success btn-block' name="delete" value="Delete User" onclick="return validateDeleteUserData();"></input>
+				        		<input type="submit" id="delete" class='btn btn-success btn-block' name="delete" value="Delete" onclick="return validateDeleteUserData();"></input>
 				        	</div>
 				        </div>
 	        		</form>

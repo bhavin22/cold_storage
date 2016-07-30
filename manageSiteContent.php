@@ -68,7 +68,8 @@ $arrTestimonial = $obj->getTestimonials($dbConn);
 </head>
 <body>
 	<div class="container">
-		<nav class="navbar navbar-default">
+		<nav class="navbar navbar-default custom-nav-bar">
+			<a class="navbar-brand logo" href="index.php"></a> 
 		    <ul class="nav navbar-nav navbar-right">
 		    	<li><a href="index.php">Home</a></li>
 		    	<li><a href="adminDashboard.php">Manage Users</a></li>
@@ -112,7 +113,7 @@ $arrTestimonial = $obj->getTestimonials($dbConn);
 							<div class="col-sm-3">
 							</div>
 							<div class="col-sm-6 bottom-padding">
-								<input type="submit" id="submit_project" name="submit_project" value="Create Project" class="btn btn-success btn-block" onclick="return validateProjectData();"></input>
+								<input type="submit" id="submit_project" name="submit_project" value="Create" class="btn btn-success btn-block" onclick="return validateProjectData();"></input>
 							</div>		
 						</div>
 					</form>
@@ -151,7 +152,7 @@ $arrTestimonial = $obj->getTestimonials($dbConn);
 	        			<div class="row">
 				        	<div class="col-xs-3"></div>
 				        	<div class="col-xs-6">
-				        		<input type="submit" id="delete_project" class='btn btn-success btn-block' name="delete_project" value="Delete Project" onclick="return validateDeleteProjectData();"></input>
+				        		<input type="submit" id="delete_project" class='btn btn-success btn-block' name="delete_project" value="Delete" onclick="return validateDeleteProjectData();"></input>
 				        	</div>
 				        </div>
 	        		</form>
@@ -194,7 +195,7 @@ $arrTestimonial = $obj->getTestimonials($dbConn);
 	        			<div class="row">
 				        	<div class="col-xs-3"></div>
 				        	<div class="col-xs-6">
-				        		<input type="submit" id="delete_testimonial" class='btn btn-success btn-block' name="delete_testimonial" value="Delete Testimonial" onclick="return validateDeleteTestimonialData();"></input>
+				        		<input type="submit" id="delete_testimonial" class='btn btn-success btn-block' name="delete_testimonial" value="Delete" onclick="return validateDeleteTestimonialData();"></input>
 				        	</div>
 				        </div>
 	        		</form>

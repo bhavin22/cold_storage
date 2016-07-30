@@ -1,10 +1,27 @@
 <?php 
-	require_once 'config.php';
-	require_once 'siteContent.php';
+require_once 'config.php';
+require_once 'siteContent.php';
+require_once 'email.php';
 
-	$siteContent = new siteContent();
-	$testimonials = $siteContent->getTestimonials($dbConn);
-	$projects = $siteContent->getProjects($dbConn);
+$siteContent = new siteContent();
+$testimonials = $siteContent->getTestimonials($dbConn);
+$projects = $siteContent->getProjects($dbConn);
+$error_msg = "";
+if(isset($_POST) && isset($_POST['send'])) {
+	if(!isset($_POST['name']) || empty($_POST['name'])) {
+		$error_msg = "Please enter name.";
+	} else if(!isset($_POST['email']) || empty($_POST['email'])) {
+		$error_msg = "Please enter valid email adresss.";
+	} else if(!isset($_POST['phone']) || empty($_POST['phone'])) {
+		$error_msg = "Please enter valid phone number.";
+	} else if(!isset($_POST['message']) || empty($_POST['message'])) {
+		$error_msg = "Please enter message.";
+	} else {
+		$obj = new email();
+		$error_msg = $obj->sendContactRequestEmail($_POST['name'], $_POST['email'], $_POST['phone'], $_POST['message']);
+	}
+}
+
 ?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -468,25 +485,30 @@
 
 				<div class="col-md-6 to-animate">
 					<h3>Contact Form</h3>
+					<form action="#" method="post">
+					<div class="form-group ">
+						<label id="error_msg"><?=$error_msg?></label>
+					</div>
 					<div class="form-group ">
 						<label for="name" class="sr-only">Name</label>
-						<input id="name" class="form-control" placeholder="Name" type="text">
+						<input id="name" name="name" class="form-control" placeholder="Name" type="text">
 					</div>
 					<div class="form-group ">
 						<label for="email" class="sr-only">Email</label>
-						<input id="email" class="form-control" placeholder="Email" type="email">
+						<input id="email" name="email" class="form-control" placeholder="Email" type="email">
 					</div>
 					<div class="form-group ">
 						<label for="phone" class="sr-only">Phone</label>
-						<input id="phone" class="form-control" placeholder="Phone" type="text">
+						<input id="phone" name="phone" class="form-control" placeholder="Phone" type="text">
 					</div>
 					<div class="form-group ">
 						<label for="message" class="sr-only">Message</label>
-						<textarea name="" id="message" cols="30" rows="5" class="form-control" placeholder="Message"></textarea>
+						<textarea name="message" id="message" cols="30" rows="5" class="form-control" placeholder="Message"></textarea>
 					</div>
 					<div class="form-group ">
-						<input class="btn btn-primary btn-lg" value="Send Message" type="submit">
+						<input class="btn btn-primary btn-lg" name="send" value="Send Message" type="submit" onclick="return validateContactForm();">
 					</div>
+					</form>
 					</div>
 				</div>
 

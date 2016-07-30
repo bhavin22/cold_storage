@@ -50,7 +50,8 @@ if(isset($_POST) && isset($_POST['edit'])) {
 </head>
 <body>
 	<div class="container">
-		<nav class="navbar navbar-default">
+		<nav class="navbar navbar-default custom-nav-bar">
+			<a class="navbar-brand logo" href="index.php"></a> 
 		    <ul class="nav navbar-nav navbar-right">
 		    	<li><a href="index.php">Home</a></li>
 		    	<li><a href="logout.php" class="menu-link">Logout</a></li>
@@ -112,7 +113,7 @@ if(isset($_POST) && isset($_POST['edit'])) {
 		</div>
 		<div class="row">
 			<div class="col-sm-6">
-				<input type="submit" id="edit" name="edit" value="Edit User" class="btn btn-success btn-block" onclick="return validateEditUserData();"></input>
+				<input type="submit" id="edit" name="edit" value="Save" class="btn btn-success btn-block" onclick="return validateEditUserData();"></input>
 			</div>
 			<div class="col-sm-6 bottom-padding">
 				<input type="button" id="cancelEditing" value="Cancel" class="btn btn-success btn-block"></input>

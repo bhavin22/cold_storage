@@ -55,7 +55,8 @@ if(isset($_POST) && isset($_POST['submit'])) {
 </head>
 <body>
 	<div class="container">
-		<nav class="navbar navbar-default">
+		<nav class="navbar navbar-default custom-nav-bar">
+			<a class="navbar-brand logo" href="index.php"></a> 
 		    <ul class="nav navbar-nav navbar-right">
 		    	<li><a href="index.php">Home</a></li>
 		        <li><a href="login.php" class="menu-link">Login</a></li>
