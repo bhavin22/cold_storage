@@ -82,7 +82,7 @@ $userData = $obj->getUserData($dbConn, $_SESSION['userData']['id']);
 			  	<div id="view" class="tab-pane fade in active">
 			  		<br>
 			  		<div class="text-center">
-  						<a href="http://<?=$_SESSION['userData']['user_ip']?>" target="_blank" class="btn btn-success">View</a>
+  						<a href="http://<?=$_SESSION['userData']['user_ip']?>:4080" target="_blank" class="btn btn-success">View</a>
   					</div>
 			  	</div>
 			
