@@ -35,7 +35,7 @@ if(isset($_POST) && isset($_POST['submit'])) {
 			}
 			exit();
 		} else {
-			$error_msg = "User_name or password is incorrect.";
+			$error_msg = "Username or password is incorrect.";
 		}
 	}
 }

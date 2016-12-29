@@ -51,6 +51,10 @@ $('#video').on('click',function(){
 	$('html, body').animate({
         scrollTop: $(".watch-video").offset().top -200
     }, 2000);
+    window.setTimeout(function(){
+    	$('#video').parent().parent().children().removeClass('active');
+    	$('#video').parent().addClass('active');	
+    }, 1000);
 })
 
 function validateUserData() {
