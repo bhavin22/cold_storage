@@ -249,6 +249,29 @@ function validatePasswords() {
 	}
 }
 
+function validateContactForm() {
+	var name = $('#name');
+	var email = $('#email');
+	var phone = $('#phone');
+	var message = $('#message');
+
+	if(!$.trim($(name).val())) {
+		$('#error_msg').html("Please enter name.");
+		return false;
+	} else if(!$(email).val() || !emailRegEx.test($(email).val())) {
+		$('#error_msg').html("Please enter valid email adresss.");
+		return false;
+	} else if(!$(phone).val() || !phoneRegEx.test($(phone).val())) {
+		$('#error_msg').html("Please enter valid phone number.");
+		return false;
+	} else if(!$.trim($(message).val())) {
+		$('#error_msg').html("Please enter message.");
+		return false;
+	} else {
+		return true;
+	}
+}
+
 $(document).ready(function(){
 	attachResizeEvent();
 	attachTestSliderEvents();

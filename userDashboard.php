@@ -58,7 +58,8 @@ $userData = $obj->getUserData($dbConn, $_SESSION['userData']['id']);
 </head>
 <body>
 	<div class="container">
-		<nav class="navbar navbar-default">
+		<nav class="navbar navbar-default custom-nav-bar">
+			<a class="navbar-brand logo" href="index.php"></a> 
 		    <ul class="nav navbar-nav navbar-right">
 		    	<li><a href="index.php">Home</a></li>
 		        <li><a href="logout.php" class="menu-link">Logout</a></li>
@@ -81,7 +82,7 @@ $userData = $obj->getUserData($dbConn, $_SESSION['userData']['id']);
 			  	<div id="view" class="tab-pane fade in active">
 			  		<br>
 			  		<div class="text-center">
-  						<a href="http://<?=$_SESSION['userData']['user_ip']?>" target="_blank" class="btn btn-success">View</a>
+  						<a href="http://<?=$_SESSION['userData']['user_ip']?>:4080" target="_blank" class="btn btn-success">View</a>
   					</div>
 			  	</div>
 			
@@ -128,7 +129,7 @@ $userData = $obj->getUserData($dbConn, $_SESSION['userData']['id']);
 						</div>
 						<div class="row">
 							<div class="col-sm-6">
-								<input type="submit" id="editProfile" name="editProfile" value="Edit Prpfile" class="btn btn-success btn-block" onclick="return validateEditProfileData();"></input>
+								<input type="submit" id="editProfile" name="editProfile" value="Save" class="btn btn-success btn-block" onclick="return validateEditProfileData();"></input>
 							</div>	
 						</div>
 						</form>
@@ -184,7 +185,7 @@ $userData = $obj->getUserData($dbConn, $_SESSION['userData']['id']);
 							<div class="col-sm-3">
 							</div>
 							<div class="col-sm-6 bottom-padding">
-								<input type="submit" id="submit" name="submit" value="Add Testimonial" class="btn btn-success btn-block" onclick="return validateTestimonialData();"></input>
+								<input type="submit" id="submit" name="submit" value="Add" class="btn btn-success btn-block" onclick="return validateTestimonialData();"></input>
 							</div>		
 						</div>
 					</form>

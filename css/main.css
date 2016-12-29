@@ -21,7 +21,13 @@
 .bottom-padding {
 	padding-bottom: 20px;
 }
-
+.custom-nav-bar {
+	padding-left: 10px;
+}
+.custom-nav-bar ul {
+	padding-top: 25px;
+	font-size: 16px;
+}
 .logo {
 	background-image: url('../images/logo.png');
 	width: 140px;
