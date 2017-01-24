@@ -82,7 +82,14 @@ $userData = $obj->getUserData($dbConn, $_SESSION['userData']['id']);
 			  	<div id="view" class="tab-pane fade in active">
 			  		<br>
 			  		<div class="text-center">
-  						<a href="http://<?=$_SESSION['userData']['user_ip']?>:4080" target="_blank" class="btn btn-success">View</a>
+			  		<form method="post" action="remoteDesktop.php">
+			  			<input type="hidden" name="user_ip" id="user_ip" value="<?=$_SESSION['userData']['user_ip']?>">
+			  			<input class="btn btn-small btn-success" type="submit" name="submit" id="view" value="view">
+			  		</form>
+			  		</div>
+			  		
+			  		<div class="text-center">
+  						<!-- <a href="http://<?=$_SESSION['userData']['user_ip']?>:4080" target="_blank" class="btn btn-success">View</a> -->
   					</div>
 			  	</div>
 			
